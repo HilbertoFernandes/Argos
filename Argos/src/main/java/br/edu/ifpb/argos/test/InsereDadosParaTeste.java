@@ -46,7 +46,7 @@ public class InsereDadosParaTeste {
 		//inserindo um usuário Administrador
 		Usuario usuario1 = new Usuario();
 		usuario1.setMatricula("123456");
-		usuario1.setNome("Richard Stallman");
+		usuario1.setNome("Richard Matthew Stallman");
 		usuario1.setEmail("argos@ifpb.edu.br");
 		usuario1.setSenha("123456");
 		usuario1.setFone("83996193926");
