@@ -48,18 +48,17 @@
 									           color:orange; 
 									           padding:10px"
 								               rendered="#{loginBean.usuarioLogado.perfil eq 'administrador'}">
-									           padding:10px">
+									           
 									<i class="glyphicon glyphicon-edit"></i>
 								</h:commandLink>
 								
 								
 								<h:commandLink action="#{fatoBean.excluir(fato)}"
-									style="width:30%; 
+								                style="width:30%; 
 									           color:orange; 
 									           padding:10px"
 								               rendered="#{loginBean.usuarioLogado.perfil eq 'administrador'}">
-									           color:red; 
-									           padding:10px">
+									           
 									<i class="glyphicon glyphicon-trash"></i>
 								</h:commandLink>
 							</h:column>
