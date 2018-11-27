@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:viewParam name="id" value="#{objetoBean.id}" />
+	<f:viewParam name="titulo" value="#{objetoBean.titulo}" />
+	<f:viewParam name="descricao" value="#{objetoBean.descricao}" />
+	<f:viewParam name="editando" value="#{objetoBean.editando}" />
+</f:metadata>
+<h:body>
+	<ui:composition template="../template/template.xhtml">
+		<ui:define name="ttitle">Objeto</ui:define>
+		<ui:define name="tbody">
+
+			<h:form>
+				<h:inputHidden value="#{objetoBean.id}"
+				               id="id" />
+				<p:tabView>
+					<p:tab title="Cadastro de novo Objeto">
+						<h:panelGrid id="grid" 
+									 columns="4" 
+									 style="width:100%;">
+							<h:panelGrid rendered="#{not objetoBean.editando}">
+								<p:outputLabel for="titulo" 
+								               value="Título "
+									           style="margin-top:5%" />
+								  <p:inputText id="titulo" 
+								               required="true"
+									           requiredMessage="Informe o título"
+								     	       value="#{objetoBean.titulo}" >
+								</p:inputText>
+								<p:message for="titulo" 
+								           display="text" 
+								           showDetail="true" />
+							</h:panelGrid>
+							<h:panelGrid>
+								<p:outputLabel for="descricao" 
+								               value="descricao " 
+								               style="margin-top:5%" />
+								  <p:inputText id="descricao" 
+								               required="true"
+									           requiredMessage="Descrição" 
+									           value="#{objetoBean.descricao}" />
+								    <p:message for="descricao"
+								               display="text" 
+								               showDetail="true" />
+							</h:panelGrid>
+							
+							<h:panelGrid rendered="#{not objetoBean.editando}">
+								<p:outputLabel for="data" value="Data " />
+								<p:calendar 
+								           id="data" 
+								           required="true"
+								           value="#{objetoBean.data}"
+									       pattern="dd-MM-yyyy"/>
+								<p:message for="data" 
+								           display="text" 
+								           showDetail="true" />
+							</h:panelGrid>
+							
+							<h:panelGrid></h:panelGrid>
+							<h:panelGrid></h:panelGrid>
+							<h:panelGrid></h:panelGrid>
+							
+							<h:panelGrid columns="2">
+							<h:commandLink value="" 
+							               action="#{objetoBean.salvar}"
+							               id="bt_salvar">
+								           <i class="glyphicon glyphicon-floppy-saved" 
+								              style="font-size:2em;
+								              padding: 20px;
+								              margin-top:30px; 
+								              color:green">
+								          </i> 
+                            </h:commandLink>	
+						    </h:panelGrid></h:panelGrid>
+					</p:tab>
+				</p:tabView>
+				<h:messages errorStyle="color:red" infoStyle="color:blue"
+					layout="table" />
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

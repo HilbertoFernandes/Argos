@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:viewParam name="informacoes" value="#{informacaoBean.informacoes}" />
+</f:metadata>
+<h:body>
+	<ui:composition template="../template/template.xhtml">
+		 <ui:define name="ttitle">Buscar Informações</ui:define>
+		 <ui:define name="tbody">
+			<h:form id="formInformacoeslocalizadas">
+				<p:tabView>
+					<p:tab title="Buscar Informações">
+			  <h:panelGrid>
+			 <p:outputLabel value="O que procura ?"
+					        style="margin-top:5%">
+			 </p:outputLabel>
+                           </h:panelGrid> 
+				           <h:panelGrid columns="3">
+                           <p:inputText id="counter" 
+                                        value="#{informacaoBean.argumento}">
+                                <p:ajax event="keyup" 
+                                        update="encontrados, msg" 
+                                        listener="#{informacaoBean.pesquisarInformacao}" />
+                          </p:inputText>
+                         </h:panelGrid>
+                           <h:messages errorStyle="color:red" 
+								            infoStyle="color:blue"
+					                        layout="table"
+					                        id="msg" />
+                               <p:dataTable id="encontrados" 
+                                            value="#{informacaoBean.informacoes}" 
+                                            var="i">
+                         <p:column headerText="Título">
+                         #{i.titulo}
+                         </p:column>
+                         <p:column headerText="Descrição">
+                         #{i.descricao}
+                         </p:column>
+                          <p:column headerText="Data">
+                          #{i.data}</p:column>
+                         </p:dataTable>
+				   </p:tab>
+			     </p:tabView>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head><title>Cadastro de Pessoa</title></h:head>
+	
+<f:metadata>
+	<f:viewParam name="id" value="#{pessoaBean.id}" />
+	<f:viewParam name="nome" value="#{pessoaBean.nome}" />
+	<f:viewParam name="apelido" value="#{pessoaBean.apelido}" />
+	<f:viewParam name="historico" value="#{pessoaBean.historico}" />
+	<f:viewParam name="foto" value="#{pessoaBean.foto}" />
+
+</f:metadata>
+	
+<h:body style="background-image: url('../resources/imagens/login.png'); height: 268px; ">
+	<ui:composition template="../template/template.xhtml">
+		<ui:define name="ttitle">Cadastro de Nova Pessoa</ui:define>
+		<ui:define name="tbody">
+	
+	<h:form id="form">
+	
+				<h:inputHidden value="#{pessoaBean.id}"
+				               id="id" />
+				<p:tabView>
+					<p:tab title="Cadastro de Nova Pessoa">
+						<h:panelGrid id="grid" 
+									 columns="2" 
+									 style="width:100%;">
+							
+								<p:outputLabel for="nome" 
+								               value="Nome: " 
+								               style="margin-top:5%" />
+								               
+								<p:inputText id="nome" 
+								               required="true"
+									           requiredMessage="Informe o nome" 
+									           value="#{pessoaBean.nome}" />
+									           
+								<p:message for="nome"
+								               display="text" 
+								               showDetail="true" /><br />
+						</h:panelGrid>
+						
+						<h:panelGrid id="grid2"
+									 columns="2"
+									 style="width:100%;">
+								               
+								<p:outputLabel for="apelido" 
+								               value="Apelido: " 
+								               style="margin-top:5%" />
+								                     
+								<p:inputText id="apelido" 
+								               required="false"
+									           requiredMessage="Informe o apelido" 
+									           value="#{pessoaBean.apelido}" />
+									           
+								<p:message for="apelido"
+								               display="text" 
+								               showDetail="true" /><br /><br />
+						</h:panelGrid>
+						
+						<h:panelGrid id="grid3"
+									 columns="2"
+									 style="width:100%;">
+							
+								<p:outputLabel for="historico"
+											   value="Histórico: "
+											   style="margin-top:5%" />
+								<p:inputTextarea id="historico"
+												 required="false"
+												 rows = "10"
+												 columns = "100"
+												 value="#{pessoaBean.historico}" />
+								<p:message for="historico"
+												display="text"
+												showDetail="true" />
+							</h:panelGrid>
+							
+							
+							<h:panelGrid>
+								<p:outputLabel for="foto"
+											   value="Anexar Foto: "
+											   style="margin-top:5%" />
+								
+								
+								<p:fileUpload id="foto"
+											  fileUploadListener="#{fileView.upload}"
+											  cancelLabel="Cancelar"
+											  uploadLabel="Inserir"
+											  label="Selecionar"
+											  mode="advanced" 
+                      						  dragDropSupport="false"
+                      						  invalidSizeMessage="Tamanho de imagem invalida!"
+                      						  invalidFileMessage="Arquivo invalido!"
+                      						  multiple="true"
+                      						  sizeLimit="1000000"
+                      						  fileLimit="3"
+                      						  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /><br /><br />
+							</h:panelGrid>
+												
+
+							
+							<h:panelGrid columns="2">
+							<h:commandLink value="" 
+							               action="#{pessoaBean.salvar}"
+							               id="bt_salvar">
+								           <i class="glyphicon glyphicon-floppy-saved" 
+								              style="font-size:2em;
+								              padding: 20px;
+								              margin-top:30px; 
+								              color:green">
+								          </i> 
+                            </h:commandLink>	
+						    </h:panelGrid>
+				</p:tab>
+			</p:tabView>
+	</h:form>
+	
+	</ui:define>
+	</ui:composition>
+</h:body>
+</html>

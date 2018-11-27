@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	 xmlns:h="http://xmlns.jcp.org/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:component>
+	<h:panelGroup rendered="#{loginBean.usuarioLogado.perfil eq 'administrador'}">
+		<h:form>  
+		  <p:menubar style="font-size:14pt; padding:10px">
+		    <p:menuitem url="../usuario/home.jsf?faces-redirect=true" >
+            <span class="glyphicon glyphicon-home"></span>
+            </p:menuitem>
+			    <p:submenu label="Usuário" icon="ui-icon-person">
+				    <p:menuitem value="Novo" action="#{usuarioBean.goCadastro}" />
+				    <p:menuitem value="Usuários" action="#{usuarioBean.goUsuarios}" />
+				    <p:menuitem value="Alterar Senha" action="/usuario/alterar_senha?faces-redirect=true" />
+			    </p:submenu>
+			    
+			     <p:submenu label="Crime" icon="ui-icon-person">
+				    <p:menuitem value="Novo" action="#{crimeBean.goCadastro}" />
+				    <p:menuitem value="Crimes" action="#{crimeBean.goCrimes}" />
+			    </p:submenu>
+			    
+<<<<<<< HEAD
+			    <p:submenu label="Objeto" icon="ui-icon-person">
+				    <p:menuitem value="Novo" action="#{objetoBean.goCadastro}" />
+				    <p:menuitem value="Objetos" action="#{objetoBean.goObjetos}" />
+			    </p:submenu>			    
+			    
+=======
+>>>>>>> 3ce13fccc0e47ce14858a50521ac19126370a48b
+			    <p:submenu label="Fato" icon="ui-icon-person">
+				    <p:menuitem value="Novo" action="#{fatoBean.goCadastro}" />
+				    <p:menuitem value="Fatos" action="#{fatoBean.goFatos}" />
+			    </p:submenu>
+			    
+			      <p:submenu label="Informacao" icon="ui-icon-person">
+				    <p:menuitem value="Nova" action="#{informacaoBean.goCadastro}" />
+				    <p:menuitem value="Informacões" action="#{informacaoBean.goInformacoes}" />
+			    </p:submenu>
+			    
+			    <p:submenu label="Pessoa" icon="ui-icon-person">
+			    	<p:menuitem value="Novo" action="#{pessoaBean.goCadastroPessoa}" />
+			    	
+			    </p:submenu>
+			    <p:submenu label="Consultas" icon="ui-icon-lightbulb">
+				    <p:menuitem value="Buscar usuário" action="/usuario/busca?faces-redirect=true"/> 
+				    <p:menuitem value="Buscar Informação" action="/informacao/busca?faces-redirect=true"/> 
+				    <p:menuitem value="Buscar Crime" action="/crime/busca?faces-redirect=true"/>
+<<<<<<< HEAD
+				    <p:menuitem value="Buscar Objeto" action="/objeto/busca?faces-redirect=true"/>
+=======
+>>>>>>> 3ce13fccc0e47ce14858a50521ac19126370a48b
+				    <p:menuitem value="Buscar Fato" action="/fato/busca?faces-redirect=true"/> 
+				    
+			    </p:submenu>
+			    <f:facet name="options">
+				    #{loginBean.usuarioLogado.nome}
+					(#{loginBean.usuarioLogado.perfil})
+				    <h:commandLink action="#{loginBean.logout}">Sair</h:commandLink>
+			    </f:facet>
+			
+		    </p:menubar>
+		</h:form>	
+	 </h:panelGroup>
+	 
+<!-- 	 Menu do usuário -->
+	 
+	
+	  <h:panelGroup rendered="#{loginBean.usuarioLogado.perfil eq 'usuario'}">
+		 	<h:form>  
+		  <p:menubar style="font-size:14pt; padding:10px">
+		    <p:menuitem url="../usuario/home.jsf?faces-redirect=true" >
+            <span class="glyphicon glyphicon-home"></span>
+            </p:menuitem>
+			    
+			     <p:submenu label="Crime" icon="ui-icon-person">
+				    <p:menuitem value="Novo" action="#{crimeBean.goCadastro}" />
+			    </p:submenu>
+			    
+			    <p:submenu label="Objeto" icon="ui-icon-person">
+				    <p:menuitem value="Novo" action="#{objetoBean.goCadastro}" />
+			    </p:submenu>			    
+			    
+			    <p:submenu label="Fato" icon="ui-icon-person">
+				    <p:menuitem value="Novo" action="#{fatoBean.goCadastro}" />
+			    </p:submenu>
+			    
+			      <p:submenu label="Informacao" icon="ui-icon-person">
+				    <p:menuitem value="Nova" action="#{informacaoBean.goCadastro}" />
+			    </p:submenu>
+			    
+			    <p:submenu label="Pessoa" icon="ui-icon-person">
+			    	<p:menuitem value="Novo" action="#{pessoaBean.goCadastroPessoa}" />
+			    	
+			    </p:submenu>
+			    <p:submenu label="Consultas" icon="ui-icon-lightbulb">
+				    <p:menuitem value="Buscar usuário" action="/usuario/busca?faces-redirect=true"/> 
+				    <p:menuitem value="Buscar Informação" action="/informacao/busca?faces-redirect=true"/> 
+				    <p:menuitem value="Buscar Crime" action="/crime/busca?faces-redirect=true"/>
+				    <p:menuitem value="Buscar Objeto" action="/objeto/busca?faces-redirect=true"/>
+				    <p:menuitem value="Buscar Fato" action="/fato/busca?faces-redirect=true"/> 
+				    
+			    </p:submenu>
+			    <f:facet name="options">
+				    #{loginBean.usuarioLogado.nome}
+					(#{loginBean.usuarioLogado.perfil})
+				    <h:commandLink action="#{loginBean.logout}">Sair</h:commandLink>
+			    </f:facet>
+			
+		    </p:menubar>
+		</h:form>
+	 </h:panelGroup>
+	</ui:component>
+</html>
