@@ -46,7 +46,7 @@ public class InsereDadosParaTeste {
 		//inserindo um usuário Administrador
 		Usuario usuario1 = new Usuario();
 		usuario1.setMatricula("123456");
-		usuario1.setNome("Argos - Administrador");
+		usuario1.setNome("Richard Stallman");
 		usuario1.setEmail("argos@ifpb.edu.br");
 		usuario1.setSenha("123456");
 		usuario1.setFone("83996193926");
@@ -58,7 +58,7 @@ public class InsereDadosParaTeste {
 		//inserindo um usuário comum
 		Usuario usuario2 = new Usuario();
 		usuario2.setMatricula("246810");
-		usuario2.setNome("Argos - Comum");
+		usuario2.setNome("Alan Turing");
 		usuario2.setEmail("argos@ifpb.edu.br");
 		usuario2.setSenha("123456");
 		usuario2.setFone("83996193926");
