@@ -32,7 +32,7 @@ public class FatoBean extends GenericBean implements Serializable {
 			fato = controller.buscar(id);
 			fato.setDescricao(descricao);
 			controller.atualizar(fato);
-			proxView = "crimes?faces-redirect=true";
+			proxView = "fatos?faces-redirect=true";
 		} else {
 			try {
 				fato = new Fato();
@@ -77,7 +77,7 @@ public class FatoBean extends GenericBean implements Serializable {
 		return fatos;
 	}
 
-	public void setCrimes(List<Fato> fatos) {
+	public void setFatos(List<Fato> fatos) {
 		this.fatos = fatos;
 	}
 

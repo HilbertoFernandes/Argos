@@ -11,7 +11,7 @@
 	<ui:composition template="../template/template.xhtml">
 		 <ui:define name="ttitle">Buscar Fatos</ui:define>
 		 <ui:define name="tbody">
-			<h:form id="formCrimeslocalizados">
+			<h:form id="formFatoslocalizados">
 				<p:tabView>
 					<p:tab title="Buscar Fatos">
 			  <h:panelGrid>
@@ -33,15 +33,15 @@
 					                        id="msg" />
                                <p:dataTable id="encontrados" 
                                             value="#{fatoBean.fatos}" 
-                                            var="c">
+                                            var="f">
                          <p:column headerText="Título">
-                         #{c.titulo}
+                         #{f.titulo}
                          </p:column>
                          <p:column headerText="Descrição">
-                         #{c.descricao}
+                         #{f.descricao}
                          </p:column>
                           <p:column headerText="Data">
-                          #{c.data}</p:column>
+                          #{f.data}</p:column>
                          </p:dataTable>
 				   </p:tab>
 			     </p:tabView>

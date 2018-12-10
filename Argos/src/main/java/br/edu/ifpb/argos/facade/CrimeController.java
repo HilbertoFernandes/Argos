@@ -59,7 +59,7 @@ public class CrimeController {
 
 	public List<Crime> pesquisar(String argumento) {
 		Query q = PersistenceUtil.getEntityManager().createQuery(
-				"select u from Crime u where upper(u.titulo) LIKE :argumento OR u.descricao LIKE :argumento");
+				"select u from Crime u where upper(u.titulo) LIKE :argumento OR upper(u.descricao) LIKE :argumento");
 		argumento = argumento.toUpperCase();
 		q.setParameter("argumento", "%" + argumento + "%");
 		@SuppressWarnings("unchecked")
