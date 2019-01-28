@@ -3,6 +3,7 @@ package br.edu.ifpb.argos.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+
 import br.edu.ifpb.argos.entity.Usuario;
 
 public class UsuarioDAO extends GenericDAO<Usuario, Integer> {

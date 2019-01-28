@@ -1,9 +1,8 @@
 package br.edu.ifpb.argos.bean;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+
 import br.edu.ifpb.argos.entity.Usuario;
 import br.edu.ifpb.argos.facade.LoginController;
 

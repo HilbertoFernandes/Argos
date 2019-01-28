@@ -9,6 +9,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import br.edu.ifpb.argos.dao.ManagedEMContext;
 import br.edu.ifpb.argos.dao.PersistenceUtil;
 import br.edu.ifpb.argos.dao.UsuarioDAO;

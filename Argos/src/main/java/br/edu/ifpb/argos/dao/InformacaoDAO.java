@@ -1,6 +1,7 @@
 package br.edu.ifpb.argos.dao;
 
 import javax.persistence.EntityManager;
+
 import br.edu.ifpb.argos.entity.Informacao;
 
 public class InformacaoDAO extends GenericDAO<Informacao, Integer> {

@@ -3,12 +3,13 @@ package br.edu.ifpb.argos.bean;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.PersistenceException;
+
 import br.edu.ifpb.argos.entity.Fato;
 import br.edu.ifpb.argos.facade.FatoController;
-import br.edu.ifpb.argos.facade.InformacaoController;
 
 @ManagedBean(name = "fatoBean")
 @ViewScoped

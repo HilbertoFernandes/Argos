@@ -6,66 +6,52 @@
 
 <h:head>
 	<title>Argos - Login</title>
-	<h:outputStylesheet library="bootstrap" 
-	                    name="css/bootstrap.css"
-		                target="head" />
-	<h:outputStylesheet library="css" 
-	                    name="login.css" 
-	                    target="head" />
 </h:head>
-<h:body style="background-image: url('./resources/imagens/login.png');">
-   <div class="container">
-		<p:panel id="loginPnl" 
-			     style="width: 330px;
-			     margin: 0 auto; 
-			     margin-top:10%; 
-			     opacity: 0.9;
-			     border-radius: 8px 8x 8px;
-			     background-image:url('./resources/imagens/form_login.jpg')">
-			     
-			<h:form id="formLogin" 
-			        styleClass="form-signin">
-			        
-			      
-					
-	   <h:panelGrid id="loginPanel" 
-				    columns="2">
-				   
-					 <h:outputText value="Matrícula" 
-					               style="margin-left:1%; "/>
-					  <p:inputText id="matricula" 
-					  			   maxlength="11"
-					               value="#{loginBean.matricula}"
-					               style="margin-top:7%;
-					               margin-left:3%; 
-					               margin-top:1%">
-					   </p:inputText>
-					   
-					 <h:outputText value="Senha">
-					 </h:outputText>
-					<p:password id="senha" 
-					               value="#{loginBean.senha}"
-						           feedback="false" 
-						           minLength="6" 
-						           maxlength="6"
-						           style="margin-top:7%;
-						           margin-left:3%;">
-			       </p:password>
-				<p:spacer />
-				<p:spacer />
-				</h:panelGrid>
-				<p:commandButton styleClass="btn btn-lg btn-primary btn-block"
-					             action="#{loginBean.autenticar}" 
-					             value="Entrar"
-					             style="width:30%; margin-left:35%; margin-top:10%">
-				</p:commandButton>
-				
-				<h:messages errorStyle="color:red" infoStyle="color:blue"
-					layout="table" />
-			</h:form>
-		
-		</p:panel>
+<h:body style="background-image: url('./resources/imagens/background-login.jpg');">
+	<div class="container">
+		<div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12"
+			align="center" style="margin-top: 10%">
+
+				<h:form id="formLogin">
+					<h:panelGrid id="loginPanel" 
+					             columns="2" 
+					             width="20%"
+					             style="box-shadow: 0 0px 1px 5px rgba(0, 0, 0, 0.7);
+					             border-radius: 10px;
+					             background-color:white;
+					             opacity: 0.6; 
+					             padding:2%;">
+						<h:outputText value="Usuário" style="font-size:20pt"/>
+						<p:inputText id="matricula" 
+						             maxlength="11"
+							         value="#{loginBean.matricula}"
+							         style="width:95%; 
+							         margin-left:3%;
+							         padding:3%;
+							         box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.5);">
+						</p:inputText>
+
+						<h:outputText value="Senha" style="font-size:20pt"/>
+						<p:password id="senha" 
+						            value="#{loginBean.senha}" 
+						            feedback="false"
+							        minLength="6"
+							        maxlength="6"
+							        style="width:95%; 
+							        margin-left:3%;
+							        padding:3%;
+							        box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.5);">
+						</p:password>
+						
+						<p:commandButton action="#{loginBean.autenticar}" 
+						                 value="Entrar"
+						                 style="margin-top:15%;
+						                 width:100%;
+						                 margin-left:60%;"/>
+					   </h:panelGrid>
+					<h:messages errorStyle="color:red" infoStyle="color:blue" layout="table" />
+				</h:form>
+		</div>
 	</div>
-				    
 </h:body>
 </html>

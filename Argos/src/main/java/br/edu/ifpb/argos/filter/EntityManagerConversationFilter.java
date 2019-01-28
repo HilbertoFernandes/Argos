@@ -15,19 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.hibernate.StaleObjectStateException;
+
 import br.edu.ifpb.argos.dao.ManagedEMContext;
 import br.edu.ifpb.argos.dao.PersistenceUtil;
 
 
-/**
- * Este filtro controla o EntityManager para conversa��es longas. O EM � colocado e retirado
- * da HttpSession a cada request para servlets e JSPs. Quando o servlet e os JSPs utilizarem
- * o EM (via DAOs, por exemplo) ele estar� dispon�vel via PersistenceUtil.getCurrentEntityManager().
- * Este filtro redireciona para a p�gina principal de consulta caso a HttpSession tenha sido fechada. Ou seja,
- * se ele for ativado sem que uma sess~]ao tenha sido previamente criada, ele redirecionar� para esta p�gina index.jsp.
- * @author Fred
- *
- */
+
 @WebFilter (urlPatterns = {"*.jsf"})
 public class EntityManagerConversationFilter implements Filter {
 	private static Logger logger = Logger.getLogger(EntityManagerConversationFilter.class);

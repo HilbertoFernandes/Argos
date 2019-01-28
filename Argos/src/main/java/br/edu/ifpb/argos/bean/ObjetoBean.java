@@ -8,7 +8,6 @@ import javax.faces.bean.ViewScoped;
 import javax.persistence.PersistenceException;
 import br.edu.ifpb.argos.entity.Objeto;
 import br.edu.ifpb.argos.facade.ObjetoController;
-import br.edu.ifpb.argos.facade.InformacaoController;
 
 @ManagedBean(name = "objetoBean")
 @ViewScoped

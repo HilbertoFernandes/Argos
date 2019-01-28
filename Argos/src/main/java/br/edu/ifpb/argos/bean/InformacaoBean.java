@@ -44,7 +44,7 @@ public class InformacaoBean extends GenericBean implements Serializable {
 				informacao.setData(data);
 				controller.cadastrar(informacao);
 				this.addSuccessMessage("Informacao salva com sucesso");
-				proxView = "informacoes?faces-redirect=true";
+				proxView = "/usuario/home?faces-redirect=true";
 				informacao = new Informacao();
 			} catch (PersistenceException e) {
 				this.addErrorMessage("Erro ao tentar salvar o usuário.");

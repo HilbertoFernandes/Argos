@@ -3,6 +3,7 @@ package br.edu.ifpb.argos.facade;
 import java.util.List;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+
 import br.edu.ifpb.argos.dao.PersistenceUtil;
 import br.edu.ifpb.argos.dao.UsuarioDAO;
 import br.edu.ifpb.argos.entity.Usuario;
