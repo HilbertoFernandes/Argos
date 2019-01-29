@@ -18,6 +18,7 @@
 		<ui:define name="ttitle">Usuário</ui:define>
 		<ui:define name="tbody">
 	<h:form id="lista_crimes">
+	<h:inputHidden value="#{crimeBean.id}" id="id" />
 	<h:messages errorStyle="color:red" 
 	            infoStyle="color:blue"
 			    layout="table" />
@@ -27,7 +28,9 @@
 					<h:outputText value="#{crime.titulo}" />
 			    </p:column>
 				    <p:column headerText="Data" width="10%">
-					<h:outputText value="#{crime.data}" />
+					<h:outputText value="#{crime.data}">
+					<f:convertDateTime dateStyle="medium" />
+					</h:outputText>
 			    </p:column>
 				    <p:column headerText="Descrição">
 					<h:outputText value="#{crime.descricao}" />
