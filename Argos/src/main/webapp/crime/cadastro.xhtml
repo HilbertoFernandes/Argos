@@ -8,15 +8,20 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
 </h:head>
+
+<f:metadata>
+	<f:viewParam name="id" value="#{crimeBean.id}" />
+	<f:viewParam name="titulo" value="#{crimeBean.titulo}" />
+	<f:viewParam name="descricao" value="#{crimeBean.descricao}" />
+	<f:viewParam name="data" value="#{crimeBean.data}" />
+</f:metadata>
 
 <h:body>
 	<ui:composition template="../template/template.xhtml">
-		<ui:define name="ttitle">Usuário</ui:define>
+		<ui:define name="ttitle">Crimes</ui:define>
 		<ui:define name="tbody">
 			<h:form id="cadastro_crime">
 
