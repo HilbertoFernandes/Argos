@@ -20,10 +20,9 @@
 		<ui:define name="tbody">
 			<h:form id="lista_investigacoes">
 				<h:inputHidden value="#{investigacaoBean.id}" id="id" />
-				<h:messages errorStyle="color:red" infoStyle="color:blue"
-					layout="table" />
+                <p:growl id="messages" closable="true" />
 				<h1 class="display-4" style="font-size: 20pt" align="center">Investigações
-					Cadastradas</h1>
+					Cadastradas</h1> <br/><b>Clique no título para abrir os dados da investigação</b>
 				<p:dataTable var="investigacao"
 					value="#{investigacaoBean.investigacoes}" rows="10"
 					paginator="true">

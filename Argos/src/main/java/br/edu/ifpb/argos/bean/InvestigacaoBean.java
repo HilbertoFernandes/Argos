@@ -61,7 +61,7 @@ public class InvestigacaoBean extends GenericBean {
 		InvestigacaoController controller = new InvestigacaoController();
 		controller.excluir(investigacao);
 		this.addSuccessMessage("Investigação excluída com sucesso");
-		proxView = "/usuario/home?faces-redirect=true";
+		proxView = "/lista/home?faces-redirect=true";
 		return proxView;
 	}
 
@@ -86,6 +86,12 @@ public class InvestigacaoBean extends GenericBean {
 	public String goHomeInvestigacao(Investigacao investigacao) {
 		InvestigacaoController controller = new InvestigacaoController();
 		this.investigacao = controller.buscar(investigacao.getId());
+		this.fatos = this.investigacao.getFatos();
+		this.objetos = this.investigacao.getObjetos();
+		this.pessoas = this.investigacao.getPessoas();
+		this.locais = this.investigacao.getLocais();
+		this.informacoes = this.investigacao.getInformacoes();
+		this.crimes = this.investigacao.getCrimes();
 		return "/investigacao/home?faces-redirect=true&includeViewParams=true";
 	}
 

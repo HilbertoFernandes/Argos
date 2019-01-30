@@ -22,12 +22,12 @@
 			<h:form>
 				<div class="row">
 					<div class="col-xs-6 col-md-1"></div>
-					<div class="col-xs-6 col-md-10">
+					<div class="col-xs-3 col-md-12">
 
 						<p:tabView>
 							<p:tab title="Pessoas">
 								<h:panelGrid columns="1" cellpadding="10">
-									<p:dataTable var="pessoa" value="#{pessoaBean.pessoas}"
+									<p:dataTable var="pessoa" value="#{investigacaoBean.pessoas}"
 										rows="10" paginator="true">
 										<p:column headerText="Nome">
 											<h:outputText value="#{pessoa.nome}" />
@@ -38,13 +38,12 @@
 									</p:dataTable>
 								</h:panelGrid>
 							</p:tab>
-
-
+ 
 							<p:tab title="Informações">
 								<h:panelGrid columns="1" cellpadding="10">
 									<h:panelGrid columns="1" cellpadding="10">
 										<p:dataTable var="informacao"
-											value="#{informacaoBean.informacoes}" rows="10"
+											value="#{investigacaoBean.informacoes}" rows="10"
 											paginator="true">
 											<p:column headerText="Título">
 												<h:outputText value="#{informacao.titulo}" />
@@ -61,7 +60,7 @@
 							<p:tab title="Objetos">
 								<h:panelGrid columns="1" cellpadding="10">
 									<h:panelGrid columns="1" cellpadding="10">
-										<p:dataTable var="objeto" value="#{objetoBean.objetos}"
+										<p:dataTable var="objeto" value="#{investigacaoBean.objetos}"
 											rows="10" paginator="true">
 											<p:column headerText="Nome">
 												<h:outputText value="#{objeto.nome}" />
@@ -75,24 +74,101 @@
 							</p:tab>
 
 
-							<p:tab title="Locais">
+								<p:tab title="Locais">
 								<h:panelGrid columns="1" cellpadding="10">
-									<h:outputText value="..." />
+									<h:panelGrid columns="1" cellpadding="10">
+										<p:dataTable var="local" value="#{investigacaoBean.locais}"
+											rows="10" paginator="true">
+											<p:column headerText="Título">
+												<h:outputText value="#{local.titulo}" />
+											</p:column>
+											<p:column headerText="Endereço">
+												<h:outputText value="#{local.endereco}" />
+											</p:column>
+											<p:column headerText="Descrição">
+												<h:outputText value="#{local.descricao}" />
+											</p:column>
+										</p:dataTable>
+									</h:panelGrid>
 								</h:panelGrid>
 							</p:tab>
-							<p:tab title="Fatos">
-								<h:panelGrid columns="1" cellpadding="10">
-									<h:outputText value="..." />
-								</h:panelGrid>
-							</p:tab>
+							
+							
 							<p:tab title="Crimes">
 								<h:panelGrid columns="1" cellpadding="10">
-									<h:outputText value="..." />
+									<h:panelGrid columns="1" cellpadding="10">
+										<p:dataTable var="crime" value="#{investigacaoBean.crimes}"
+											rows="10" paginator="true">
+											<p:column headerText="Data">
+												<h:outputText value="#{crime.data}" />
+											</p:column>
+											<p:column headerText="Título">
+												<h:outputText value="#{crime.titulo}" />
+											</p:column>
+										</p:dataTable>
+									</h:panelGrid>
+								</h:panelGrid>
+							</p:tab>
+							
+							
+							<p:tab title="Fato">
+								<h:panelGrid columns="1" cellpadding="10">
+									<h:panelGrid columns="1" cellpadding="10">
+										<p:dataTable var="fato" value="#{investigacaoBean.fatos}"
+											rows="10" paginator="true">
+											<p:column headerText="Data">
+												<h:outputText value="#{fato.data}" />
+											</p:column>
+											<p:column headerText="Título">
+												<h:outputText value="#{fato.titulo}" />
+											</p:column>
+										</p:dataTable>
+									</h:panelGrid>
 								</h:panelGrid>
 							</p:tab>
 						</p:tabView>
+						
+						<div>
+						         <p:commandButton value="Adiconar Pessoa" 
+				                 ajax="false" 
+								 action="#" 
+								 style="width:17%;
+								 margin:1%;
+								 float:none;
+				                 margin-left:3%"/>
+				                 
+		                          <p:commandButton value="Adiconar Fato" 
+				                 ajax="false" 
+								 action="#" 
+								 style="width:17%;
+								 margin:1%;
+								 float:none;
+				                 margin-left:1%"/>
+				                  <p:commandButton value="Adiconar Objeto" 
+				                 ajax="false" 
+								 action="#" 
+								 style="width:17%;
+								 margin:1%;
+								 float:none;
+				                 margin-left:1%"/>
+				                  <p:commandButton value="Adiconar Local" 
+				                 ajax="false" 
+								 action="#" 
+								 style="width:17%;
+								 margin:1%;
+								 float:none;
+				                 margin-left:1%"/>
+				                  <p:commandButton value="Adiconar Informação" 
+				                 ajax="false" 
+								 action="#" 
+								 style="width:17%;
+								 margin:1%;
+								 float:none;
+				                 margin-left:1%"/>
+				                 
+				                 </div>
+				                 </div>
 					</div>
-				</div>
 			</h:form>
 		</ui:define>
 	</ui:composition>
