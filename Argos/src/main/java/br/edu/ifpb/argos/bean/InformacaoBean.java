@@ -1,7 +1,6 @@
 package br.edu.ifpb.argos.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -10,6 +9,7 @@ import javax.persistence.PersistenceException;
 
 import br.edu.ifpb.argos.entity.Informacao;
 import br.edu.ifpb.argos.facade.InformacaoController;
+import br.edu.ifpb.argos.facade.PessoaController;
 
 @ManagedBean(name = "informacaoBean")
 @ViewScoped
@@ -20,10 +20,7 @@ public class InformacaoBean extends GenericBean implements Serializable {
 	private Integer id = null;
 	private String titulo;
 	private String descricao;
-	private Date data;
 	private List<Informacao> informacoes;
-	private boolean editando = false;
-	private String argumento;
 
 	public String salvar() {
 		InformacaoController controller = new InformacaoController();
@@ -33,15 +30,13 @@ public class InformacaoBean extends GenericBean implements Serializable {
 			informacao = controller.buscar(id);
 			informacao.setTitulo(titulo);
 			informacao.setDescricao(descricao);
-			informacao.setData(data);
 			controller.atualizar(informacao);
-			proxView = "informacoes?faces-redirect=true";
+			proxView = "/usuario/home?faces-redirect=true";
 		} else {
 			try {
 				informacao = new Informacao();
 				informacao.setTitulo(titulo);
 				informacao.setDescricao(descricao);
-				informacao.setData(data);
 				controller.cadastrar(informacao);
 				this.addSuccessMessage("Informacao salva com sucesso");
 				proxView = "/usuario/home?faces-redirect=true";
@@ -56,9 +51,7 @@ public class InformacaoBean extends GenericBean implements Serializable {
 	public String editar(Informacao informacao) {
 		this.titulo = informacao.getTitulo();
 		this.descricao = informacao.getDescricao();
-		this.data = informacao.getData();
 		this.id = informacao.getId();
-		this.editando = true;
 		return "cadastro?faces-redirect=true&includeViewParams=true";
 	}
 
@@ -71,37 +64,21 @@ public class InformacaoBean extends GenericBean implements Serializable {
 		return proxima_pagina;
 	}
 
-	public String pesquisarInformacao() {
+	public void listarInformacoes() {
 		InformacaoController controller = new InformacaoController();
-		this.informacoes = controller.pesquisar(argumento);
-
-		if (informacoes.isEmpty())
-			this.addErrorMessage("Não há informacoes para o argumento informado.");
-		return "busca?faces-redirect=true&includeViewParams=true";
+		this.informacoes = controller.listar();
 	}
 
-	public List<Informacao> getInformacoes() {
-		return informacoes;
-	}
-
-	public void setInformacoes(List<Informacao> informacoes) {
-		this.informacoes = informacoes;
-	}
-
-	public String goCadastro() {
-		return "/informacao/cadastro?faces-redirect=true";
-	}
-
-	public String goInformacoes() {
-		return "/informacao/informacoes?faces-redirect=true";
+	public String goHome() {
+		return "/usuario/home?faces-redirect=true";
 	}
 
 	public Informacao getInformacao() {
 		return informacao;
 	}
 
-	public void setInformacao(Informacao Informacao) {
-		this.informacao = Informacao;
+	public void setInformacao(Informacao informacao) {
+		this.informacao = informacao;
 	}
 
 	public Integer getId() {
@@ -128,33 +105,12 @@ public class InformacaoBean extends GenericBean implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Date getData() {
-		return data;
+	public List<Informacao> getInformacoes() {
+		return informacoes;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public boolean isEditando() {
-		return editando;
-	}
-
-	public void setEditando(boolean editando) {
-		this.editando = editando;
-	}
-
-	public String getArgumento() {
-		return argumento;
-	}
-
-	public void setArgumento(String argumento) {
-		this.argumento = argumento;
-	}
-
-	public void listarInformacoes() {
-		InformacaoController controller = new InformacaoController();
-		this.informacoes = controller.listar();
+	public void setInformacoes(List<Informacao> informacoes) {
+		this.informacoes = informacoes;
 	}
 
 	public static long getSerialversionuid() {

@@ -44,12 +44,14 @@ public class PessoaBean extends GenericBean {
 		pessoa.setNome(nome);
 		pessoa.setApelido(apelido);
 		pessoa.setHistorico(historico);
-		String local = Paths.get(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/").toString()+"/fotos").toString();
-		
+		String local = Paths
+				.get(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/").toString() + "/fotos")
+				.toString();
+
 		if (foto.getSize() != 0) {
 			String nomeDaImagem = String.valueOf(System.currentTimeMillis());
 			BufferedImage img = null;
-			pessoa.setFoto("/fotos/"+nomeDaImagem);
+			pessoa.setFoto("/fotos/" + nomeDaImagem);
 			img = ImageIO.read(new ByteArrayInputStream(foto.getContents()));
 			ImageIO.write(img, "JPG", new File(local, nomeDaImagem));
 		} else {

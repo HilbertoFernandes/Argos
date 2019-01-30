@@ -5,56 +5,57 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <f:metadata>
-	<f:viewParam name="id" value="#{informacaoBean.id}" />
-	<f:viewParam name="titulo" value="#{informacaoBean.titulo}" />
-	<f:viewParam name="historico" value="#{informacaoBean.descricao}" />
+	<f:viewParam name="id" value="#{pessoaBean.id}" />
+	<f:viewParam name="titulo" value="#{investigacaoBean.titulo}" />
+	<f:viewParam name="descricao" value="#{investigacaoBean.descricao}" />
 </f:metadata>
 <h:body>
 	<ui:composition template="../template/template.xhtml">
-		<ui:define name="ttitle">Cadastro de informacao</ui:define>
+		<ui:define name="ttitle">Cadastro de Investigação</ui:define>
 		<ui:define name="tbody">
-			<h:form id="cadastro_informacao">
-				<h:inputHidden value="#{informacaoBean.id}" id="id" />
+				
+			<h:form>
+				<h:inputHidden value="#{investigacaoBean.id}" id="id" />
 				<div class="row">
 					<div class="col-xs-6 col-md-3"></div>
 					<div class="col-xs-6 col-md-6">
 						<p:tabView>
-							<p:tab title="Cadastro de Informação">
+							<p:tab title="Cadastro de nova Investigação">
 								<h:panelGrid id="grid" columns="1" style="width:100%;">
 								   
 									<p:outputLabel for="titulo" 
-												   value="titulo "	
+												   value="Título "	
 												   style="margin-top:5%" 
 												   indicateRequired="false"/>
 												   
 									<p:inputText id="titulo" 
+									             required="true" 
 									             requiredMessage="Informe o título"
-										         value="#{informacaoBean.titulo}" 
+										         value="#{investigacaoBean.titulo}" 
 										         style="width:100%"/>
 									  <p:message for="titulo" 
 									             display="text" 
 									             showDetail="true" />
 									
 									<p:outputLabel for="descricao" 
-									               value="Descrição " 
+									               value="descricao " 
 									               style="margin-top:5%"
 									               indicateRequired="false"/>
 									               
-									<p:inputTextarea id="descricao" 
-									             	 required="true"
-										         	 requiredMessage="Descrição" 
-										         	 value="#{informacaoBean.descricao}"
-										         	 style="width:100%" />
+									<p:inputText id="descricao" 
+									             required="true"
+										         requiredMessage="Descrição" 
+										         value="#{investigacaoBean.descricao}"
+										         style="width:100%" />
 									  <p:message for="descricao"
 									             display="text" 
 									             showDetail="true" />
-									             
 								</h:panelGrid>
 							</p:tab>
 						</p:tabView>
 						<p:commandButton value="Salvar" 
 				                 ajax="false" 
-								 action="#{informacaoBean.salvar}" 
+								 action="#{investigacaoBean.salvar}" 
 								 class="btn btn-primary" 
 								 style="width:20%;
 								 padding:1%;
@@ -63,7 +64,7 @@
 				                 
 		        <p:commandButton value="Cancelar" 
 				                 ajax="false" 
-								 action="#{pessoaBean.goHome}" 
+								 action="#{inestigacaoBean.goHome}" 
 								 class="btn btn-secondary" 
 								 style="width:20%;
 								 padding:1%;
@@ -71,7 +72,7 @@
 				                 margin-left:1%"/>
 					</div>
 				</div>
-			</h:form>
+	     </h:form>
 		</ui:define>
 	</ui:composition>
 </h:body>

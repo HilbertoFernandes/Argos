@@ -19,7 +19,7 @@ public class CrimeBean extends GenericBean implements Serializable {
 	private Crime crime;
 	private Integer id = null;
 	private String titulo;
-	private String descricao;
+	private String historico;
 	private Date data;
 	private List<Crime> crimes;
 	private boolean editando = false;
@@ -31,14 +31,14 @@ public class CrimeBean extends GenericBean implements Serializable {
 
 		if (id != null) {
 			crime = controller.buscar(id);
-			crime.setDescricao(descricao);
+			crime.setHistorico(historico);
 			controller.atualizar(crime);
 			proxView = "crimes?faces-redirect=true";
 		} else {
 			try {
 				crime = new Crime();
 				crime.setTitulo(titulo);
-				crime.setDescricao(descricao);
+				crime.setHistorico(historico);
 				crime.setData(data);
 				controller.cadastrar(crime);
 				this.addSuccessMessage("Crime salvo com sucesso");
@@ -53,7 +53,7 @@ public class CrimeBean extends GenericBean implements Serializable {
 
 	public String editar(Crime crime) {
 		this.titulo = crime.getTitulo();
-		this.descricao = crime.getDescricao();
+		this.historico = crime.getHistorico();
 		this.data = crime.getData();
 		this.id = crime.getId();
 		this.editando = true;
@@ -114,12 +114,12 @@ public class CrimeBean extends GenericBean implements Serializable {
 		this.titulo = titulo;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getHistorico() {
+		return historico;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setHistorico(String descricao) {
+		this.historico = descricao;
 	}
 
 	public Date getData() {
@@ -149,7 +149,7 @@ public class CrimeBean extends GenericBean implements Serializable {
 	public String pesquisarCrimes() {
 		CrimeController controller = new CrimeController();
 		this.crimes = controller.pesquisar(argumento);
-	
+
 		if (crimes.isEmpty())
 			this.addErrorMessage("Não há crimes para o argumento informado.");
 		return "busca?faces-redirect=true&includeViewParams=true";

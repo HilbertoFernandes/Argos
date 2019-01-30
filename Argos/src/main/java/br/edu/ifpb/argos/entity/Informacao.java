@@ -1,16 +1,15 @@
 package br.edu.ifpb.argos.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_Informacao")
@@ -22,25 +21,23 @@ public class Informacao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@ManyToMany(mappedBy = "informacoes")
+	private List<Investigacao> investigacoes;
+
 	@Column(name = "TITULO")
 	private String titulo;
 
 	@Column(name = "DESCRICAO")
 	private String descricao;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA")
-	private Date data;
-
 	public Informacao() {
 	}
 
-	public Informacao(Integer id, String titulo, String descricao, Date data) {
+	public Informacao(Integer id, String titulo, String descricao) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
-		this.data = data;
 	}
 
 	public Integer getId() {
@@ -65,14 +62,6 @@ public class Informacao implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
 	}
 
 	public static long getSerialversionuid() {

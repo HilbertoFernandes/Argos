@@ -32,8 +32,11 @@
 					<f:convertDateTime dateStyle="medium" />
 					</h:outputText>
 			    </p:column>
-				    <p:column headerText="Descrição">
-					<h:outputText value="#{crime.descricao}" />
+				    <p:column headerText="Título">
+					<h:outputText value="#{crime.titulo}" />
+			    </p:column>
+				    <p:column headerText="Histórico">
+					<h:outputText value="#{crime.historico}" />
 			    </p:column>
 			    <p:column headerText="Ações" width="12%">
 					<h:commandLink action="#{crimeBean.editar(crime)}" value="Editar" style=" color:orange; padding:10px"/>

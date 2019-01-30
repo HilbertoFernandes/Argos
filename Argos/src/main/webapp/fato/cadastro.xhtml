@@ -1,75 +1,89 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+	
+<f:metadata>
+	<f:viewParam name="id" value="#{fatoBean.id}" />
+	<f:viewParam name="data" value="#{fatoBean.data}" />
+	<f:viewParam name="titulo" value="#{fatoBean.titulo}" />
+	<f:viewParam name="historico" value="#{fatoBean.descricao}" />
+</f:metadata>
 <h:body>
 	<ui:composition template="../template/template.xhtml">
-		<ui:define name="ttitle">Usuário</ui:define>
+		<ui:define name="ttitle">Cadastro de fato</ui:define>
 		<ui:define name="tbody">
-
 			<h:form id="cadastro_fato">
-
+				<h:inputHidden value="#{fatoBean.id}" id="id" />
 				<div class="row">
 					<div class="col-xs-6 col-md-3"></div>
 					<div class="col-xs-6 col-md-6">
-						<h1 class="display-4" style="font-size: 20pt" align="center">Cadastro
-							de fato</h1>
-						<table
-							style="box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.7); margin-top: 3%; width: 100%">
-
-							<tr>
-								<td style="padding: 1%; font-size: 14pt; width: 10%;"
-									align="center">Data</td>
-								<td><p:calendar id="data" value="#{fatoBean.data}"
-										mode="popup" style="margin-left:2%" /></td>
-
-							</tr>
-
-							<tr>
-								<td style="padding: 1%; font-size: 14pt; width: 10%;"
-									align="center">fato</td>
-								<td><p:inputText id="titulo"
-										style="width: 95%;
-								     margin:2%;"
-										value="#{fatoBean.titulo}">
-									</p:inputText> <p:message for="titulo" display="text" showDetail="true" /></td>
-							</tr>
-
-
-							<tr>
-								<td style="padding: 1%; font-size: 14pt; width: 10%;"
-									align="center">Histórico</td>
-								<td style="padding: 5px"><p:inputText id="descricao"
-										style="width: 95%;
-								     margin:1%;"
-										value="#{fatoBean.descricao}">
-									</p:inputText> <p:message for="descricao" display="text" showDetail="true" /></td>
-							</tr>
-
-						</table>
-						<p:commandButton value="Salvar" ajax="false"
-							action="#{fatoBean.salvar}" class="btn btn-primary"
-							style="width:20%;
+						<p:tabView>
+							<p:tab title="Cadastro de Fato">
+								<h:panelGrid id="grid" columns="1" style="width:100%;">
+								   
+								   <p:outputLabel for="data" 
+												   value="Data "	
+												   style="margin-top:5%" 
+												   indicateRequired="false"/>
+												   
+								       <p:calendar id="data" 
+								                   value="#{fatoBean.data}"
+										           mode="popup" 
+										           style="margin-left:2%" />
+										<p:message for="data" 
+									               display="text" 
+									               showDetail="true" />
+										
+									<p:outputLabel for="titulo" 
+												   value="titulo "	
+												   style="margin-top:5%" 
+												   indicateRequired="false"/>
+												   
+									<p:inputText id="titulo" 
+									             requiredMessage="Informe o título"
+										         value="#{fatoBean.titulo}" 
+										         style="width:100%"/>
+									  <p:message for="titulo" 
+									             display="text" 
+									             showDetail="true" />
+									
+									<p:outputLabel for="descricao" 
+									               value="Descrição " 
+									               style="margin-top:5%"
+									               indicateRequired="false"/>
+									               
+									<p:inputTextarea id="descricao" 
+									             	 required="true"
+										         	 requiredMessage="Descrição" 
+										         	 value="#{fatoBean.descricao}"
+										         	 style="width:100%" />
+									  <p:message for="descricao"
+									             display="text" 
+									             showDetail="true" />
+									             
+								</h:panelGrid>
+							</p:tab>
+						</p:tabView>
+						<p:commandButton value="Salvar" 
+				                 ajax="false" 
+								 action="#{fatoBean.salvar}" 
+								 class="btn btn-primary" 
+								 style="width:20%;
 								 padding:1%;
 								 margin:3%;
-				                 margin-left:27%" />
-
-						<p:commandButton value="Cancelar" ajax="false"
-							action="#{pessoaBean.goHome}" class="btn btn-secondary"
-							style="width:20%;
+				                 margin-left:27%"/>
+				                 
+		        <p:commandButton value="Cancelar" 
+				                 ajax="false" 
+								 action="#{pessoaBean.goHome}" 
+								 class="btn btn-secondary" 
+								 style="width:20%;
 								 padding:1%;
 								 margin:3%;
-				                 margin-left:1%" />
-
-
-
+				                 margin-left:1%"/>
 					</div>
-					<div class="col-xs-6 col-md-3"></div>
 				</div>
 			</h:form>
 		</ui:define>

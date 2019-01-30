@@ -13,12 +13,12 @@ import javax.persistence.TemporalType;
 import br.edu.ifpb.argos.util.PasswordUtil;
 
 @Entity
-@Table(name = "TB_USUARIO")
+@Table(name = "TB_Usuario")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID_USUARIO")
+	@Column(name = "ID_Usuario")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
@@ -46,9 +46,7 @@ public class Usuario implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "ANIVERSARIO")
 	private Date dataAniversario;
-	
-	
-	
+
 	public Usuario() {
 	}
 

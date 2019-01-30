@@ -2,18 +2,20 @@ package br.edu.ifpb.argos.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "TB_CRIME")
+@Table(name = "TB_Crime")
 public class Crime implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,11 +24,14 @@ public class Crime implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@ManyToMany(mappedBy = "crimes")
+	private List<Investigacao> investigacoes;
+
 	@Column(name = "TITULO")
 	private String titulo;
 
-	@Column(name = "DESCRICAO")
-	private String descricao;
+	@Column(name = "HISTORICO")
+	private String historico;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA")
@@ -39,7 +44,7 @@ public class Crime implements Serializable {
 		super();
 		this.id = id;
 		this.titulo = titulo;
-		this.descricao = descricao;
+		this.historico = descricao;
 		this.data = data;
 	}
 
@@ -51,6 +56,14 @@ public class Crime implements Serializable {
 		this.id = id;
 	}
 
+	public List<Investigacao> getInvestigacoes() {
+		return investigacoes;
+	}
+
+	public void setInvestigacoes(List<Investigacao> investigacoes) {
+		this.investigacoes = investigacoes;
+	}
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -59,12 +72,12 @@ public class Crime implements Serializable {
 		this.titulo = titulo;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getHistorico() {
+		return historico;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setHistorico(String historico) {
+		this.historico = historico;
 	}
 
 	public Date getData() {

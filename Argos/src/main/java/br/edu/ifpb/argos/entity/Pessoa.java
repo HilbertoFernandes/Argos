@@ -1,12 +1,14 @@
 package br.edu.ifpb.argos.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +20,9 @@ public class Pessoa implements Serializable {
 	@Column(name = "ID_Pessoa")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@ManyToMany(mappedBy="pessoas")
+    private List<Investigacao> investigacoes;
 
 	@Column(name = "NOME")
 	private String nome;

@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:viewParam name="investigacao"
+		value="#{investigacaoBean.investigacao}" />
+	<f:event type="preRenderView" listener="#{pessoaBean.listarPessoas}" />
+	<f:event type="preRenderView" listener="#{objetoBean.listarObjetos}" />
+	<f:event type="preRenderView" listener="#{localBean.listarLocais}" />
+	<f:event type="preRenderView" listener="#{fatoBean.listarFatos}" />
+	<f:event type="preRenderView"
+		listener="#{informacaoBean.listarInformacoes}" />
+</f:metadata>
+
+<h:body>
+	<ui:composition template="../template/template.xhtml">
+		<ui:define name="ttitle">Investigação</ui:define>
+		<ui:define name="tbody">
+			<h:form>
+				<div class="row">
+					<div class="col-xs-6 col-md-1"></div>
+					<div class="col-xs-6 col-md-10">
+
+						<p:tabView>
+							<p:tab title="Pessoas">
+								<h:panelGrid columns="1" cellpadding="10">
+									<p:dataTable var="pessoa" value="#{pessoaBean.pessoas}"
+										rows="10" paginator="true">
+										<p:column headerText="Nome">
+											<h:outputText value="#{pessoa.nome}" />
+										</p:column>
+										<p:column headerText="Apelido">
+											<h:outputText value="#{pessoa.apelido}" />
+										</p:column>
+									</p:dataTable>
+								</h:panelGrid>
+							</p:tab>
+
+
+							<p:tab title="Informações">
+								<h:panelGrid columns="1" cellpadding="10">
+									<h:panelGrid columns="1" cellpadding="10">
+										<p:dataTable var="informacao"
+											value="#{informacaoBean.informacoes}" rows="10"
+											paginator="true">
+											<p:column headerText="Título">
+												<h:outputText value="#{informacao.titulo}" />
+											</p:column>
+											<p:column headerText="Descrição">
+												<h:outputText value="#{informacao.descricao}" />
+											</p:column>
+										</p:dataTable>
+									</h:panelGrid>
+								</h:panelGrid>
+							</p:tab>
+
+
+							<p:tab title="Objetos">
+								<h:panelGrid columns="1" cellpadding="10">
+									<h:panelGrid columns="1" cellpadding="10">
+										<p:dataTable var="objeto" value="#{objetoBean.objetos}"
+											rows="10" paginator="true">
+											<p:column headerText="Nome">
+												<h:outputText value="#{objeto.nome}" />
+											</p:column>
+											<p:column headerText="Descrição">
+												<h:outputText value="#{objeto.descricao}" />
+											</p:column>
+										</p:dataTable>
+									</h:panelGrid>
+								</h:panelGrid>
+							</p:tab>
+
+
+							<p:tab title="Locais">
+								<h:panelGrid columns="1" cellpadding="10">
+									<h:outputText value="..." />
+								</h:panelGrid>
+							</p:tab>
+							<p:tab title="Fatos">
+								<h:panelGrid columns="1" cellpadding="10">
+									<h:outputText value="..." />
+								</h:panelGrid>
+							</p:tab>
+							<p:tab title="Crimes">
+								<h:panelGrid columns="1" cellpadding="10">
+									<h:outputText value="..." />
+								</h:panelGrid>
+							</p:tab>
+						</p:tabView>
+					</div>
+				</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

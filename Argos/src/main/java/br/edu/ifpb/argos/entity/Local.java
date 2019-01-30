@@ -12,20 +12,23 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_Objeto")
-public class Objeto implements Serializable {
+@Table(name = "TB_Local")
+public class Local implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID_OBJETO")
+	@Column(name = "ID_LOCAL")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToMany(mappedBy = "objetos")
+	@ManyToMany(mappedBy = "locais")
 	private List<Investigacao> investigacoes;
 
-	@Column(name = "NOME")
-	private String nome;
+	@Column(name = "TITULO")
+	private String titulo;
+
+	@Column(name = "ENDERECO")
+	private String endereco;
 
 	@Column(name = "DESCRICAO")
 	private String descricao;
@@ -33,13 +36,14 @@ public class Objeto implements Serializable {
 	@Column(name = "FOTO")
 	private String foto;
 
-	public Objeto() {
+	public Local() {
 	}
 
-	public Objeto(Integer id, String nome, String descricao, String foto) {
+	public Local(Integer id, String titulo, String endereco, String descricao, String foto) {
 		super();
+		this.titulo = titulo;
 		this.id = id;
-		this.nome = nome;
+		this.endereco = endereco;
 		this.descricao = descricao;
 		this.foto = foto;
 	}
@@ -52,12 +56,12 @@ public class Objeto implements Serializable {
 		this.id = id;
 	}
 
-	public List<Investigacao> getInvestigacoes() {
-		return investigacoes;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setInvestigacoes(List<Investigacao> investigacoes) {
-		this.investigacoes = investigacoes;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
 	public String getDescricao() {
@@ -68,11 +72,11 @@ public class Objeto implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getFoto() {
+	public String getData() {
 		return foto;
 	}
 
-	public void setFoto(String foto) {
+	public void setData(String foto) {
 		this.foto = foto;
 	}
 
@@ -80,12 +84,28 @@ public class Objeto implements Serializable {
 		return serialVersionUID;
 	}
 
-	public String getNome() {
-		return nome;
+	public List<Investigacao> getInvestigacoes() {
+		return investigacoes;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setInvestigacoes(List<Investigacao> investigacoes) {
+		this.investigacoes = investigacoes;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 }

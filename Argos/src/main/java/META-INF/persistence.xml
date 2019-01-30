@@ -12,6 +12,7 @@
 		<class>br.edu.ifpb.argos.entity.Fato</class>
 		<class>br.edu.ifpb.argos.entity.Objeto</class>
 		<class>br.edu.ifpb.argos.entity.Informacao</class>
+		<class>br.edu.ifpb.argos.entity.Local</class>
 		<properties>
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.HSQLDialect" />
