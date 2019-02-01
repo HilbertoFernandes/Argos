@@ -28,6 +28,7 @@ public class LocalController {
 			dao.beginTransaction();
 			Local p = dao.find(local.getId());
 			dao.delete(p);
+			dao.commit();
 			excluiu = true;
 
 		} catch (PersistenceException e) {

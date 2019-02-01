@@ -19,6 +19,7 @@ import br.edu.ifpb.argos.entity.Investigacao;
 import br.edu.ifpb.argos.entity.Local;
 import br.edu.ifpb.argos.facade.InvestigacaoController;
 import br.edu.ifpb.argos.facade.LocalController;
+import br.edu.ifpb.argos.facade.ObjetoController;
 
 @ManagedBean(name = "localBean")
 @ViewScoped

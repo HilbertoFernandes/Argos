@@ -29,6 +29,7 @@ public class PessoaController {
 			dao.beginTransaction();
 			Pessoa p = dao.find(pessoa.getId());
 			dao.delete(p);
+			dao.commit();
 			excluiu = true;
 
 		} catch (PersistenceException e) {

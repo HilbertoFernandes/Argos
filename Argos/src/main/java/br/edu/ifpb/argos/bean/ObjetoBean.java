@@ -6,12 +6,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+
 import org.primefaces.model.UploadedFile;
+
 import br.edu.ifpb.argos.entity.Investigacao;
 import br.edu.ifpb.argos.entity.Objeto;
 import br.edu.ifpb.argos.facade.InvestigacaoController;

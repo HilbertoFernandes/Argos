@@ -25,15 +25,7 @@
 					Cadastrados</h1>
 				<p:dataTable var="fato" value="#{fatoBean.fatos}" rows="10"
 					paginator="true">
-					<p:column headerText="Data" width="10%">
-						<h:outputText value="#{fato.data}">
-							<f:convertDateTime dateStyle="medium" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Título">
-						<h:outputText value="#{fato.titulo}" />
-					</p:column>
-					<p:column headerText="Título">
+					<p:column headerText="Título" width="20%">
 						<h:outputText value="#{fato.titulo}" />
 					</p:column>
 					<p:column headerText="Histórico">

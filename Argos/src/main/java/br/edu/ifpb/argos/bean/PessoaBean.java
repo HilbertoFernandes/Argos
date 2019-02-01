@@ -13,8 +13,11 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import org.primefaces.model.UploadedFile;
 import br.edu.ifpb.argos.entity.Investigacao;
+import br.edu.ifpb.argos.entity.Local;
+import br.edu.ifpb.argos.entity.Objeto;
 import br.edu.ifpb.argos.entity.Pessoa;
 import br.edu.ifpb.argos.facade.InvestigacaoController;
+import br.edu.ifpb.argos.facade.ObjetoController;
 import br.edu.ifpb.argos.facade.PessoaController;
 
 @ManagedBean(name = "pessoaBean")
@@ -98,6 +101,14 @@ public class PessoaBean extends GenericBean {
 		this.addSuccessMessage("Sucesso!");
 		pessoa = new Pessoa();
 		return proxView;
+	}
+
+	public String editar(Pessoa pessoa) {
+		this.nome = pessoa.getNome();
+		this.apelido =pessoa.getApelido();
+		this.historico = pessoa.getHistorico();
+		this.editando = true;
+		return "cadastro?faces-redirect=true&includeViewParams=true";
 	}
 
 	public void listarPessoas() {
@@ -188,6 +199,15 @@ public class PessoaBean extends GenericBean {
 
 	public void setEditando(boolean editando) {
 		this.editando = editando;
+	}
+
+	public String excluir(Pessoa pessoa) {
+		String proxima_pagina = null;
+		PessoaController controller = new PessoaController();
+		controller.excluir(pessoa);
+		this.addSuccessMessage("Pessoa excluída com sucesso");
+		proxima_pagina = "lista?faces-redirect=true";
+		return proxima_pagina;
 	}
 
 }
