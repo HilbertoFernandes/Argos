@@ -27,7 +27,7 @@
 					value="#{investigacaoBean.investigacoes}" rows="10"
 					paginator="true">
 					<p:column headerText="Título">
-					<h:commandLink action="#{investigacaoBean.goHomeInvestigacao(investigacao)}" value="#{investigacao.titulo}" />
+					<h:commandLink action="#{investigacaoBean.goHomeInvestigacao(investigacao.id)}" value="#{investigacao.titulo}" />
 					</p:column>
 					<p:column headerText="Descrição">
 						<h:outputText value="#{investigacao.descricao}" />

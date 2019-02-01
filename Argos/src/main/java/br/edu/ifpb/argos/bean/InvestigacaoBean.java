@@ -1,11 +1,8 @@
 package br.edu.ifpb.argos.bean;
 
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.persistence.PersistenceException;
-
+import javax.faces.bean.SessionScoped;
 import br.edu.ifpb.argos.entity.Crime;
 import br.edu.ifpb.argos.entity.Fato;
 import br.edu.ifpb.argos.entity.Informacao;
@@ -16,9 +13,10 @@ import br.edu.ifpb.argos.entity.Pessoa;
 import br.edu.ifpb.argos.facade.InvestigacaoController;
 
 @ManagedBean(name = "investigacaoBean")
-@ViewScoped
+@SessionScoped
 public class InvestigacaoBean extends GenericBean {
 	private Integer id = null;
+	private boolean comesHomeInvestigacao;
 	private String titulo;
 	private String descricao;
 	private List<Crime> crimes;
@@ -29,29 +27,26 @@ public class InvestigacaoBean extends GenericBean {
 	private List<Informacao> informacoes;
 	private Investigacao investigacao;
 	private List<Investigacao> investigacoes;
+	private boolean editando = false;
 
 	public String salvar() {
-		InvestigacaoController controller = new InvestigacaoController();
 		String proxView = null;
-
+		InvestigacaoController controller = new InvestigacaoController();
+		investigacao = new Investigacao();
 		if (id != null) {
+			editando = true;
 			investigacao = controller.buscar(id);
-			investigacao.setDescricao(titulo);
+			investigacao.setTitulo(titulo);
 			investigacao.setDescricao(descricao);
 			controller.atualizar(investigacao);
-			this.investigacao = controller.buscar(id);
-			return "home?faces-redirect=true&includeViewParams=true";
+			proxView = "lista?faces-redirect=true";
 		} else {
-			try {
-				investigacao = new Investigacao();
-				investigacao.setTitulo(titulo);
-				investigacao.setDescricao(descricao);
-				controller.cadastrar(investigacao);
-				this.addSuccessMessage("investigacao salva com sucesso");
-				proxView = "/usuario/home?faces-redirect=true";
-			} catch (PersistenceException e) {
-				this.addErrorMessage("Erro ao tentar salvar o investigação.");
-			}
+			investigacao = new Investigacao();
+			investigacao.setTitulo(titulo);
+			investigacao.setDescricao(descricao);
+			controller.cadastrar(investigacao);
+			this.addSuccessMessage("investigacao salva com sucesso");
+			proxView = "lista?faces-redirect=true";
 		}
 		return proxView;
 	}
@@ -83,9 +78,58 @@ public class InvestigacaoBean extends GenericBean {
 		return "/usuario/home?faces-redirect=true";
 	}
 
-	public String goHomeInvestigacao(Investigacao investigacao) {
+	public String goAdicionarPessoa() {
+		return "/investigacao/cadastro_pessoa?faces-redirect=true";
+	}
+
+	public String goAdicionarCrime() {
+		return "/investigacao/cadastro_crime?faces-redirect=true";
+	}
+
+	public String goAdicionarFato() {
+		return "/investigacao/cadastro_fato?faces-redirect=true";
+	}
+
+	public String goAdicionarObjeto() {
+		return "/investigacao/cadastro_objeto?faces-redirect=true";
+	}
+
+	public String goAdicionarLocal() {
+		return "/investigacao/cadastro_local?faces-redirect=true";
+	}
+
+	public String goAdicionarInformacao() {
+		return "/investigacao/cadastro_informacao?faces-redirect=true";
+	}
+
+	public String goAssociarPessoa() {
+		return "/investigacao/lista_pessoa?faces-redirect=true";
+	}
+
+	public String goAssociarCrime() {
+		return "/investigacao/lista_pessoa?faces-redirect=true";
+	}
+
+	public String goAssociarFato() {
+		return "/investigacao/lista_fato?faces-redirect=true";
+	}
+
+	public String goAssociarObjeto() {
+		return "/investigacao/lista_objeto?faces-redirect=true";
+	}
+
+	public String goAssociarLocal() {
+		return "/investigacao/lista_local?faces-redirect=true";
+	}
+
+	public String goAssociarInformacao() {
+		return "/investigacao/lista_informacao?faces-redirect=true";
+	}
+
+	public String goHomeInvestigacao(int investigacao) {
 		InvestigacaoController controller = new InvestigacaoController();
-		this.investigacao = controller.buscar(investigacao.getId());
+		this.comesHomeInvestigacao = true;
+		this.investigacao = controller.buscar(investigacao);
 		this.fatos = this.investigacao.getFatos();
 		this.objetos = this.investigacao.getObjetos();
 		this.pessoas = this.investigacao.getPessoas();
@@ -181,6 +225,22 @@ public class InvestigacaoBean extends GenericBean {
 
 	public void setInvestigacoes(List<Investigacao> investigacoes) {
 		this.investigacoes = investigacoes;
+	}
+
+	public boolean isComesHomeInvestigacao() {
+		return comesHomeInvestigacao;
+	}
+
+	public void setComesHomeInvestigacao(boolean comesHomeInvestigacao) {
+		this.comesHomeInvestigacao = comesHomeInvestigacao;
+	}
+
+	public boolean isEditando() {
+		return editando;
+	}
+
+	public void setEditando(boolean editando) {
+		this.editando = editando;
 	}
 
 }

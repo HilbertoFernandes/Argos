@@ -8,15 +8,16 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 
 import org.primefaces.model.UploadedFile;
 
-import br.edu.ifpb.argos.entity.Crime;
+import br.edu.ifpb.argos.entity.Investigacao;
 import br.edu.ifpb.argos.entity.Local;
-import br.edu.ifpb.argos.facade.CrimeController;
+import br.edu.ifpb.argos.facade.InvestigacaoController;
 import br.edu.ifpb.argos.facade.LocalController;
 
 @ManagedBean(name = "localBean")
@@ -27,46 +28,85 @@ public class LocalBean extends GenericBean {
 	private String endereco;
 	private String descricao;
 	private String historico;
+	private Local local;
 	private UploadedFile foto;
 	private List<Local> locais;
+	private boolean editando = false;
+	@ManagedProperty("#{investigacaoBean}")
+	private InvestigacaoBean investigacaoBean;
 
 	public String salvar() throws IOException {
 		String proxView = null;
 		LocalController controller = new LocalController();
-		Local local = new Local();
-
-		if (titulo.isEmpty()) {
-			titulo = "Desconhecido";
-		}
-
-		if (endereco.isEmpty()) {
-			endereco = "Desconhecido";
-		}
-
-		local.setTitulo(titulo);
-		local.setEndereco(endereco);
-		local.setDescricao(descricao);
-		String local_foto = Paths
-				.get(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/").toString() + "/fotos")
-				.toString();
-
-		if (foto.getSize() != 0) {
-			String nomeDaImagem = String.valueOf(System.currentTimeMillis());
-			BufferedImage img = null;
-			local.setFoto("/fotos/" + nomeDaImagem);
-			img = ImageIO.read(new ByteArrayInputStream(foto.getContents()));
-			ImageIO.write(img, "JPG", new File(local_foto, nomeDaImagem));
-		} else {
-			local.setFoto("/fotos/desconhecido.jpg");
-		}
-
-		controller.cadastrar(local);
-		this.addSuccessMessage("Pessoa Cadastrada, obrigado!");
 		local = new Local();
-		proxView = "/usuario/home?faces-redirect=true";
+		if (id != null) {
+			editando = true;
+			if (titulo.isEmpty()) {
+				titulo = "Desconhecido";
+			}
+			if (endereco.isEmpty()) {
+				endereco = "Desconhecido";
+			}
+			local = controller.buscar(id);
+			local.setTitulo(titulo);
+			local.setEndereco(endereco);
+			local.setDescricao(descricao);
+			controller.atualizar(local);
+			proxView = "lista?faces-redirect=true";
+		} else {
+
+			if (titulo.isEmpty()) {
+				titulo = "Desconhecido";
+			}
+
+			if (endereco.isEmpty()) {
+				endereco = "Desconhecido";
+			}
+
+			local.setTitulo(titulo);
+			local.setEndereco(endereco);
+			local.setDescricao(descricao);
+			String local_foto = Paths
+					.get(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/").toString() + "/fotos")
+					.toString();
+
+			if (foto.getSize() != 0) {
+				String nomeDaImagem = String.valueOf(System.currentTimeMillis());
+				BufferedImage img = null;
+				local.setFoto("/fotos/" + nomeDaImagem);
+				img = ImageIO.read(new ByteArrayInputStream(foto.getContents()));
+				ImageIO.write(img, "JPG", new File(local_foto, nomeDaImagem));
+			} else {
+				local.setFoto("/fotos/desconhecido.jpg");
+			}
+
+			if (investigacaoBean.isComesHomeInvestigacao()) {
+				controller.cadastrar(local);
+				InvestigacaoController ic = new InvestigacaoController();
+				Investigacao i = ic.buscar(investigacaoBean.getInvestigacao().getId());
+				i.getLocais().add(local);
+				ic.atualizar(i);
+				investigacaoBean.setComesHomeInvestigacao(false);
+				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
+			} else {
+				proxView = "/usuario/home?faces-redirect=true&includeViewParams=true";
+				controller.cadastrar(local);
+			}
+		}
+		this.addSuccessMessage("Sucesso!");
+		local = new Local();
 		return proxView;
 	}
-	
+
+	public String editar(Local local) {
+		this.descricao = local.getDescricao();
+		this.endereco = local.getEndereco();
+		this.titulo = local.getTitulo();
+		this.id = local.getId();
+		this.editando = true;
+		return "cadastro?faces-redirect=true&includeViewParams=true";
+	}
+
 	public String excluir(Local local) {
 		String proxima_pagina = null;
 		LocalController controller = new LocalController();
@@ -141,5 +181,27 @@ public class LocalBean extends GenericBean {
 		this.locais = locais;
 	}
 
+	public InvestigacaoBean getInvestigacaoBean() {
+		return investigacaoBean;
+	}
 
+	public void setInvestigacaoBean(InvestigacaoBean investigacaoBean) {
+		this.investigacaoBean = investigacaoBean;
+	}
+
+	public Local getLocal() {
+		return local;
+	}
+
+	public void setLocal(Local local) {
+		this.local = local;
+	}
+
+	public boolean isEditando() {
+		return editando;
+	}
+
+	public void setEditando(boolean editando) {
+		this.editando = editando;
+	}
 }

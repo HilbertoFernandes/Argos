@@ -15,14 +15,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.edu.ifpb.argos.dao.CrimeDAO;
+import br.edu.ifpb.argos.dao.FatoDAO;
 import br.edu.ifpb.argos.dao.InvestigacaoDAO;
 import br.edu.ifpb.argos.dao.ManagedEMContext;
 import br.edu.ifpb.argos.dao.PersistenceUtil;
 import br.edu.ifpb.argos.dao.UsuarioDAO;
 import br.edu.ifpb.argos.entity.Crime;
+import br.edu.ifpb.argos.entity.Fato;
 import br.edu.ifpb.argos.entity.Investigacao;
 import br.edu.ifpb.argos.entity.Usuario;
-import br.edu.ifpb.argos.facade.InvestigacaoController;
 
 public class InsereDadosParaTeste {
 	private static EntityManagerFactory emf;
@@ -82,11 +83,6 @@ public class InsereDadosParaTeste {
 		udao.insert(usuario2);
 		udao.commit();
 
-		
-		
-		
-		
-		
 		Crime crime = new Crime();
 		crime.setTitulo("Crime Teste");
 		crime.setHistorico("Histórico teste");
@@ -97,22 +93,32 @@ public class InsereDadosParaTeste {
 		crime_dao.beginTransaction();
 		crime_dao.insert(crime);
 		crime_dao.commit();
+		
+		
+		Fato fato = new Fato();
+		fato.setTitulo("fato teste");
+		fato.setDescricao("Apelido teste");
+
+		FatoDAO fato_dao = new FatoDAO(em);
+		fato_dao.beginTransaction();
+		fato_dao.insert(fato);
+		fato_dao.commit();
 
 		Investigacao investigacao = new Investigacao();
 		investigacao.setTitulo("Titulo de teste");
 		investigacao.setDescricao("Descrição teste");
-		
+
 		List<Crime> crimes = new ArrayList<Crime>();
 		crimes.add(crime);
 		investigacao.setCrimes(crimes);
 		
+		List<Fato> fatos = new ArrayList<Fato>();
+		fatos.add(fato);
+		investigacao.setFatos(fatos);
+
 		InvestigacaoDAO investigacao_dao = new InvestigacaoDAO(em);
 		investigacao_dao.beginTransaction();
 		investigacao_dao.insert(investigacao);
 		investigacao_dao.commit();
-		
-		InvestigacaoController investigacao_controller = new InvestigacaoController();
-		investigacao_controller.adicionarCrime(crime);
-
 	}
 }

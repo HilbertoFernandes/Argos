@@ -5,53 +5,67 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <f:metadata>
-	<f:viewParam name="id" value="#{objetoBean.id}" />
-	<f:viewParam name="foto" value="#{objetoBean.foto}" />
-	<f:viewParam name="nome" value="#{objetoBean.nome}" />
-	<f:viewParam name="descricao" value="#{objetoBean.descricao}" />
+	<f:viewParam name="id" value="#{localBean.id}" />
+	<f:viewParam name="foto" value="#{localBean.foto}" />
+	<f:viewParam name="titulo" value="#{localBean.titulo}" />
+	<f:viewParam name="endereco" value="#{localBean.endereco}" />
+	<f:viewParam name="historico" value="#{localBean.historico}" />
 </f:metadata>
 <h:body>
 	<ui:composition template="../template/template.xhtml">
-		<ui:define name="ttitle">Cadastro de objeto</ui:define>
+		<ui:define name="ttitle">Cadastro de Local</ui:define>
 		<ui:define name="tbody">
-			<h:form id="cadastro_objeto" enctype="multipart/form-data">
-				<h:inputHidden value="#{objetoBean.id}" id="id" />
+			<h:form id="cadastro_pessoa" enctype="multipart/form-data">
+				<h:inputHidden value="#{localBean.id}" id="id" />
 				<div class="row">
 					<div class="col-xs-6 col-md-3"></div>
 					<div class="col-xs-6 col-md-6">
 						<p:tabView>
-							<p:tab title="Cadastro de objeto">
+							<p:tab title="Cadastro de Local">
 								<h:panelGrid id="grid" columns="1" style="width:100%;">
 								   
-									<p:outputLabel for="nome" 
-												   value="Nome "	
+									<p:outputLabel for="titulo" 
+												   value="titulo "	
 												   style="margin-top:5%" 
 												   indicateRequired="false"/>
 												   
-									<p:inputText id="nome" 
+									<p:inputText id="titulo" 
 									             requiredMessage="Informe o título"
-										         value="#{objetoBean.nome}" 
+										         value="#{localBean.titulo}" 
 										         style="width:100%"/>
-									  <p:message for="nome" 
+									  <p:message for="titulo" 
 									             display="text" 
 									             showDetail="true" />
 									
-									<p:outputLabel for="descricao" 
-									               value="Descricao " 
+									<p:outputLabel for="endereco" 
+									               value="endereco" 
 									               style="margin-top:5%"
 									               indicateRequired="false"/>
 									               
-									<p:inputTextarea id="descricao" 
+									<p:inputText id="endereco" 
+										         requiredMessage="Endereço" 
+										         value="#{localBean.endereco}"
+										         style="width:100%" />
+									  <p:message for="endereco"
+									             display="text" 
+									             showDetail="true" />
+									             
+									<p:outputLabel for="historico" 
+									               value="Histórico " 
+									               style="margin-top:5%"
+									               indicateRequired="false"/>
+									               
+									<p:inputTextarea id="historico" 
 									             	 required="true"
-										         	 requiredMessage="Descrição" 
-										         	 value="#{objetoBean.descricao}"
+										         	 requiredMessage="Histórico" 
+										         	 value="#{localBean.historico}"
 										         	 style="width:100%" />
-									  <p:message for="descricao"
+									  <p:message for="historico"
 									             display="text" 
 									             showDetail="true" />
 									             
 									   <p:fileUpload
-										value="#{objetoBean.foto}" fileLimit="1" id="foto"
+										value="#{localBean.foto}" fileLimit="1" id="foto"
 										label="Anexar foto"
 										fileLimitMessage="Você só pode anexar uma foto" mode="simple"
 										invalidFileMessage="Somente arquivos .jpg, .png ou .gif"
@@ -63,7 +77,7 @@
 						</p:tabView>
 						<p:commandButton value="Salvar" 
 				                 ajax="false" 
-								 action="#{objetoBean.salvar}" 
+								 action="#{localBean.salvar}" 
 								 class="btn btn-primary" 
 								 style="width:20%;
 								 padding:1%;

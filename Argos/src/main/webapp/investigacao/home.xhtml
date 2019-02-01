@@ -4,16 +4,14 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<f:metadata>
-	<f:viewParam name="investigacao"
-		value="#{investigacaoBean.investigacao}" />
-	<f:event type="preRenderView" listener="#{pessoaBean.listarPessoas}" />
-	<f:event type="preRenderView" listener="#{objetoBean.listarObjetos}" />
-	<f:event type="preRenderView" listener="#{localBean.listarLocais}" />
-	<f:event type="preRenderView" listener="#{fatoBean.listarFatos}" />
-	<f:event type="preRenderView"
-		listener="#{informacaoBean.listarInformacoes}" />
-</f:metadata>
+<!-- <f:metadata> -->
+<!-- 	<f:viewParam name="investigacaoBean" value="#{pessoaBean.id_selecioanda}" /> -->
+<!-- 	<f:event type="preRenderView" listener="#{pessoaBean.listarPessoas}" /> -->
+<!-- 	<f:event type="preRenderView" listener="#{objetoBean.listarObjetos}" /> -->
+<!-- 	<f:event type="preRenderView" listener="#{localBean.listarLocais}" /> -->
+<!-- 	<f:event type="preRenderView" listener="#{fatoBean.listarFatos}" /> -->
+<!-- 	<f:event type="preRenderView" listener="#{informacaoBean.listarInformacoes}" /> -->
+<!-- </f:metadata> -->
 
 <h:body>
 	<ui:composition template="../template/template.xhtml">
@@ -23,7 +21,6 @@
 				<div class="row">
 					<div class="col-xs-6 col-md-1"></div>
 					<div class="col-xs-3 col-md-12">
-
 						<p:tabView>
 							<p:tab title="Pessoas">
 								<h:panelGrid columns="1" cellpadding="10">
@@ -38,7 +35,7 @@
 									</p:dataTable>
 								</h:panelGrid>
 							</p:tab>
- 
+
 							<p:tab title="Informações">
 								<h:panelGrid columns="1" cellpadding="10">
 									<h:panelGrid columns="1" cellpadding="10">
@@ -74,7 +71,7 @@
 							</p:tab>
 
 
-								<p:tab title="Locais">
+							<p:tab title="Locais">
 								<h:panelGrid columns="1" cellpadding="10">
 									<h:panelGrid columns="1" cellpadding="10">
 										<p:dataTable var="local" value="#{investigacaoBean.locais}"
@@ -92,15 +89,17 @@
 									</h:panelGrid>
 								</h:panelGrid>
 							</p:tab>
-							
-							
+
+
 							<p:tab title="Crimes">
 								<h:panelGrid columns="1" cellpadding="10">
 									<h:panelGrid columns="1" cellpadding="10">
 										<p:dataTable var="crime" value="#{investigacaoBean.crimes}"
 											rows="10" paginator="true">
-											<p:column headerText="Data">
-												<h:outputText value="#{crime.data}" />
+											<p:column headerText="Data" width="10%">
+												<h:outputText value="#{crime.data}">
+													<f:convertDateTime dateStyle="medium" />
+												</h:outputText>
 											</p:column>
 											<p:column headerText="Título">
 												<h:outputText value="#{crime.titulo}" />
@@ -109,18 +108,26 @@
 									</h:panelGrid>
 								</h:panelGrid>
 							</p:tab>
-							
-							
+
+
 							<p:tab title="Fato">
 								<h:panelGrid columns="1" cellpadding="10">
 									<h:panelGrid columns="1" cellpadding="10">
 										<p:dataTable var="fato" value="#{investigacaoBean.fatos}"
 											rows="10" paginator="true">
-											<p:column headerText="Data">
-												<h:outputText value="#{fato.data}" />
+											<p:column headerText="Data" width="10%">
+												<h:outputText value="#{fato.data}">
+													<f:convertDateTime dateStyle="medium" />
+												</h:outputText>
 											</p:column>
 											<p:column headerText="Título">
 												<h:outputText value="#{fato.titulo}" />
+											</p:column>
+											<p:column headerText="Ações" width="12%">
+												<h:commandLink action="#"
+													value="Editar" style=" color:orange; padding:10px" />
+												<h:commandLink action="#"
+													value="Excluir" style="color:red; padding:10px" />
 											</p:column>
 										</p:dataTable>
 									</h:panelGrid>
@@ -128,47 +135,234 @@
 							</p:tab>
 						</p:tabView>
 						
-						<div>
-						         <p:commandButton value="Adiconar Pessoa" 
-				                 ajax="false" 
-								 action="#" 
-								 style="width:17%;
-								 margin:1%;
-								 float:none;
-				                 margin-left:3%"/>
-				                 
-		                          <p:commandButton value="Adiconar Fato" 
-				                 ajax="false" 
-								 action="#" 
-								 style="width:17%;
-								 margin:1%;
-								 float:none;
-				                 margin-left:1%"/>
-				                  <p:commandButton value="Adiconar Objeto" 
-				                 ajax="false" 
-								 action="#" 
-								 style="width:17%;
-								 margin:1%;
-								 float:none;
-				                 margin-left:1%"/>
-				                  <p:commandButton value="Adiconar Local" 
-				                 ajax="false" 
-								 action="#" 
-								 style="width:17%;
-								 margin:1%;
-								 float:none;
-				                 margin-left:1%"/>
-				                  <p:commandButton value="Adiconar Informação" 
-				                 ajax="false" 
-								 action="#" 
-								 style="width:17%;
-								 margin:1%;
-								 float:none;
-				                 margin-left:1%"/>
-				                 
-				                 </div>
-				                 </div>
+						<!-- ADICIONAR PESSOA -->
+
+						<button type="button"
+								data-toggle="modal" data-target="#myModalPessoa"
+								style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 5%">Adicionar
+								Pessoa</button>
+							<!-- Modal -->
+							<div id="myModalPessoa" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"></button>
+										<h4 class="modal-title">Adicionar Pessoa</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<p:commandButton value="Cadastrar e Adicionar nova pessoa"
+												ajax="false" action="#{investigacaoBean.goAdicionarPessoa}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+
+											<p:commandButton value="Associar pessoa já cadastrada"
+												ajax="false" action="#{investigacaoBean.goAssociarPessoa}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- FIM ADICIONAR PESSOA -->
+						
+						<!-- ADICIONAR CRIME -->
+
+						<button type="button"
+								data-toggle="modal" data-target="#myModalCrime"
+								style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
+								Crime</button>
+							<!-- Modal -->
+							<div id="myModalCrime" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"></button>
+										<h4 class="modal-title">Adicionar Crime</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<p:commandButton value="Cadastrar e Adicionar novo crime"
+												ajax="false" action="#{investigacaoBean.goAdicionarCrime}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+
+											<p:commandButton value="Associar crime já cadastrado"
+												ajax="false" action="#{investigacaoBean.goAssociarCrime}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- FIM ADICIONAR CRIME -->
+
+						<!-- ADICIONAR FATO -->
+
+						<button type="button"
+								data-toggle="modal" data-target="#myModal"
+								style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
+								Fato</button>
+							<!-- Modal -->
+							<div id="myModal" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"></button>
+										<h4 class="modal-title">Adicionar Fato</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<p:commandButton value="Cadastrar e Adicionar novo fato"
+												ajax="false" action="#{investigacaoBean.goAdicionarFato}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+
+											<p:commandButton value="Associar Fato já cadastrado"
+												ajax="false" action="#{investigacaoBean.goAssociarFato}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- FIM ADICIONAR FATO -->
+
+						<!-- ADICIONAR LOCAL -->
+
+						<button type="button"
+							data-toggle="modal" data-target="#myModal1"
+							style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
+							Local</button>
+						<!-- Modal -->
+						<div id="myModal1" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"></button>
+										<h4 class="modal-title">Adicionar Local</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<p:commandButton value="Cadastrar e Adicionar novo local"
+												ajax="false" action="#{investigacaoBean.goAdicionarLocal}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+
+											<p:commandButton value="Associar Fato já cadastrado"
+												ajax="false" action="#{investigacaoBean.goAssociarLocal}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- FIM ADICIONAR LOCAL -->
+
+						<!-- ADICIONAR OBJETO -->
+
+						<button type="button"
+							data-toggle="modal" data-target="#myModalObjeto"
+							style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
+							Objeto</button>
+						<!-- Modal -->
+						<div id="myModalObjeto" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"></button>
+										<h4 class="modal-title">Adicionar Objeto</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<p:commandButton value="Cadastrar e Adicionar novo objeto"
+												ajax="false" action="#{investigacaoBean.goAdicionarObjeto}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+
+											<p:commandButton value="Associar objeto já cadastrado"
+												ajax="false" action="#{investigacaoBean.goAssociarObjeto}"
+												style="width:50%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:27%" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- FIM ADICIONAR OBJETO -->
+						
+						<!-- ADICIONAR INFORMAÇÃO -->
+
+						<button type="button"
+								data-toggle="modal" data-target="#myModalInformacao"
+								style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
+								Informação</button>
+							<!-- Modal -->
+							<div id="myModalInformacao" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"></button>
+										<h4 class="modal-title">Adicionar Informação</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<p:commandButton value="Cadastrar e Adicionar nova informação"
+												ajax="false" action="#{investigacaoBean.goAdicionarInformacao}"
+												style="width:70%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:10%" />
+
+											<p:commandButton value="Associar informação já cadastrada"
+												ajax="false" action="#{investigacaoBean.goAssociarInformacao}"
+												style="width:70%;
+								                    padding:1%;
+								                    margin:3%;
+				                                    margin-left:10%" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- FIM ADICIONAR INFORMAÇÃO -->
 					</div>
+				</div>
 			</h:form>
 		</ui:define>
 	</ui:composition>

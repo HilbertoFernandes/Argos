@@ -17,7 +17,7 @@ public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID_Pessoa")
+	@Column(name = "ID_PESSOA")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	

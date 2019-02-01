@@ -1,15 +1,18 @@
 package br.edu.ifpb.argos.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.PersistenceException;
 
 import br.edu.ifpb.argos.entity.Crime;
+import br.edu.ifpb.argos.entity.Investigacao;
 import br.edu.ifpb.argos.facade.CrimeController;
+import br.edu.ifpb.argos.facade.InvestigacaoController;
 
 @ManagedBean(name = "crimeBean")
 @ViewScoped
@@ -24,37 +27,46 @@ public class CrimeBean extends GenericBean implements Serializable {
 	private List<Crime> crimes;
 	private boolean editando = false;
 	private String argumento;
+	@ManagedProperty("#{investigacaoBean}")
+	private InvestigacaoBean investigacaoBean;
 
-	public String salvar() {
-		CrimeController controller = new CrimeController();
+	public String salvar() throws IOException {
 		String proxView = null;
-
+		CrimeController controller = new CrimeController();
+		crime = new Crime();
 		if (id != null) {
+			editando = true;
 			crime = controller.buscar(id);
+			crime.setTitulo(titulo);
 			crime.setHistorico(historico);
 			controller.atualizar(crime);
-			proxView = "crimes?faces-redirect=true";
+			proxView = "lista?faces-redirect=true";
 		} else {
-			try {
-				crime = new Crime();
-				crime.setTitulo(titulo);
-				crime.setHistorico(historico);
-				crime.setData(data);
+			crime.setData(data);
+			crime.setTitulo(titulo);
+			crime.setHistorico(historico);
+
+			if (investigacaoBean.isComesHomeInvestigacao()) {
 				controller.cadastrar(crime);
-				this.addSuccessMessage("Crime salvo com sucesso");
-				proxView = "/usuario/home?faces-redirect=true";
-				crime = new Crime();
-			} catch (PersistenceException e) {
-				this.addErrorMessage("Erro ao tentar salvar o usuário.");
+				InvestigacaoController ic = new InvestigacaoController();
+				Investigacao i = ic.buscar(investigacaoBean.getInvestigacao().getId());
+				i.getCrimes().add(crime);
+				ic.atualizar(i);
+				investigacaoBean.setComesHomeInvestigacao(false);
+				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
+			} else {
+				proxView = "/usuario/home?faces-redirect=true&includeViewParams=true";
+				controller.cadastrar(crime);
 			}
 		}
+		this.addSuccessMessage("Sucesso!");
+		crime = new Crime();
 		return proxView;
 	}
 
 	public String editar(Crime crime) {
 		this.titulo = crime.getTitulo();
 		this.historico = crime.getHistorico();
-		this.data = crime.getData();
 		this.id = crime.getId();
 		this.editando = true;
 		return "cadastro?faces-redirect=true&includeViewParams=true";
@@ -65,7 +77,7 @@ public class CrimeBean extends GenericBean implements Serializable {
 		CrimeController controller = new CrimeController();
 		controller.excluir(crime);
 		this.addSuccessMessage("Crime excluído com sucesso");
-		proxima_pagina = "crimes?faces-redirect=true";
+		proxima_pagina = "lista?faces-redirect=true";
 		return proxima_pagina;
 	}
 
@@ -157,6 +169,14 @@ public class CrimeBean extends GenericBean implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public InvestigacaoBean getInvestigacaoBean() {
+		return investigacaoBean;
+	}
+
+	public void setInvestigacaoBean(InvestigacaoBean investigacaoBean) {
+		this.investigacaoBean = investigacaoBean;
 	}
 
 }

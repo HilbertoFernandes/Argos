@@ -1,15 +1,16 @@
 package br.edu.ifpb.argos.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.PersistenceException;
-
 import br.edu.ifpb.argos.entity.Fato;
+import br.edu.ifpb.argos.entity.Investigacao;
 import br.edu.ifpb.argos.facade.FatoController;
+import br.edu.ifpb.argos.facade.InvestigacaoController;
 
 @ManagedBean(name = "fatoBean")
 @ViewScoped
@@ -24,30 +25,40 @@ public class FatoBean extends GenericBean implements Serializable {
 	private List<Fato> fatos;
 	private boolean editando = false;
 	private String argumento;
+	@ManagedProperty("#{investigacaoBean}")
+	private InvestigacaoBean investigacaoBean;
 
-	public String salvar() {
-		FatoController controller = new FatoController();
+	public String salvar() throws IOException {
 		String proxView = null;
-
+		FatoController controller = new FatoController();
+		fato = new Fato();
 		if (id != null) {
+			editando = true;
 			fato = controller.buscar(id);
+			fato.setTitulo(titulo);
 			fato.setDescricao(descricao);
 			controller.atualizar(fato);
-			proxView = "fatos?faces-redirect=true";
+			proxView = "lista?faces-redirect=true";
 		} else {
-			try {
-				fato = new Fato();
-				fato.setTitulo(titulo);
-				fato.setDescricao(descricao);
-				fato.setData(data);
+			fato.setTitulo(titulo);
+			fato.setDescricao(descricao);
+			fato.setData(data);
+
+			if (investigacaoBean.isComesHomeInvestigacao()) {
 				controller.cadastrar(fato);
-				this.addSuccessMessage("Fato salvo com sucesso");
-				proxView = "fatos?faces-redirect=true";
-				fato = new Fato();
-			} catch (PersistenceException e) {
-				this.addErrorMessage("Erro ao tentar salvar o usuário.");
+				InvestigacaoController ic = new InvestigacaoController();
+				Investigacao i = ic.buscar(investigacaoBean.getInvestigacao().getId());
+				i.getFatos().add(fato);
+				ic.atualizar(i);
+				investigacaoBean.setComesHomeInvestigacao(false);
+				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
+			} else {
+				proxView = "/usuario/home?faces-redirect=true&includeViewParams=true";
+				controller.cadastrar(fato);
 			}
 		}
+		this.addSuccessMessage("Sucesso!");
+		fato = new Fato();
 		return proxView;
 	}
 
@@ -149,7 +160,7 @@ public class FatoBean extends GenericBean implements Serializable {
 	public String pesquisarFatos() {
 		FatoController controller = new FatoController();
 		this.fatos = controller.pesquisar(argumento);
-	
+
 		if (fatos.isEmpty())
 			this.addErrorMessage("Não há fatos para o argumento informado.");
 		return "busca?faces-redirect=true&includeViewParams=true";
@@ -157,6 +168,14 @@ public class FatoBean extends GenericBean implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public InvestigacaoBean getInvestigacaoBean() {
+		return investigacaoBean;
+	}
+
+	public void setInvestigacaoBean(InvestigacaoBean investigacaoBean) {
+		this.investigacaoBean = investigacaoBean;
 	}
 
 }

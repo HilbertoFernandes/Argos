@@ -6,67 +6,103 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
-
 import org.primefaces.model.UploadedFile;
-
+import br.edu.ifpb.argos.entity.Investigacao;
 import br.edu.ifpb.argos.entity.Pessoa;
+import br.edu.ifpb.argos.facade.InvestigacaoController;
 import br.edu.ifpb.argos.facade.PessoaController;
 
 @ManagedBean(name = "pessoaBean")
 @ViewScoped
 public class PessoaBean extends GenericBean {
 	private Integer id = null;
+	private Integer investigacao;
 	private String nome;
 	private String apelido;
 	private String historico;
 	private Pessoa pessoa;
+	private boolean editando = false;
 	private UploadedFile foto;
 	private List<Pessoa> pessoas;
+	@ManagedProperty("#{investigacaoBean}")
+	private InvestigacaoBean investigacaoBean;
 
 	public String salvar() throws IOException {
 		String proxView = null;
 		PessoaController controller = new PessoaController();
 		pessoa = new Pessoa();
+		if (id != null) {
+			editando = true;
+			if (nome.isEmpty()) {
+				nome = "Desconhecido";
+			}
+			pessoa = controller.buscar(id);
+			if (nome.isEmpty()) {
+				nome = "Desconhecido";
+			}
 
-		if (nome.isEmpty()) {
-			nome = "Desconhecido";
-		}
+			if (apelido.isEmpty()) {
+				apelido = "Desconhecido";
+			}
 
-		if (apelido.isEmpty()) {
-			apelido = "Desconhecido";
-		}
-
-		pessoa.setNome(nome);
-		pessoa.setApelido(apelido);
-		pessoa.setHistorico(historico);
-		String local = Paths
-				.get(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/").toString() + "/fotos")
-				.toString();
-
-		if (foto.getSize() != 0) {
-			String nomeDaImagem = String.valueOf(System.currentTimeMillis());
-			BufferedImage img = null;
-			pessoa.setFoto("/fotos/" + nomeDaImagem);
-			img = ImageIO.read(new ByteArrayInputStream(foto.getContents()));
-			ImageIO.write(img, "JPG", new File(local, nomeDaImagem));
+			pessoa.setNome(nome);
+			pessoa.setApelido(apelido);
+			pessoa.setHistorico(historico);
+			controller.atualizar(pessoa);
+			proxView = "lista?faces-redirect=true";
 		} else {
-			pessoa.setFoto("/fotos/desconhecido.jpg");
-		}
 
-		controller.cadastrar(pessoa);
-		this.addSuccessMessage("Pessoa Cadastrada, obrigado!");
+			if (nome.isEmpty()) {
+				nome = "Desconhecido";
+			}
+
+			if (apelido.isEmpty()) {
+				apelido = "Desconhecido";
+			}
+
+			pessoa.setNome(nome);
+			pessoa.setApelido(apelido);
+			pessoa.setHistorico(historico);
+			String local = Paths
+					.get(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/").toString() + "/fotos")
+					.toString();
+
+			if (foto.getSize() != 0) {
+				String nomeDaImagem = String.valueOf(System.currentTimeMillis());
+				BufferedImage img = null;
+				pessoa.setFoto("/fotos/" + nomeDaImagem);
+				img = ImageIO.read(new ByteArrayInputStream(foto.getContents()));
+				ImageIO.write(img, "JPG", new File(local, nomeDaImagem));
+			} else {
+				pessoa.setFoto("/fotos/desconhecido.jpg");
+			}
+
+			if (investigacaoBean.isComesHomeInvestigacao()) {
+				controller.cadastrar(pessoa);
+				InvestigacaoController ic = new InvestigacaoController();
+				Investigacao i = ic.buscar(investigacaoBean.getInvestigacao().getId());
+				i.getPessoas().add(pessoa);
+				ic.atualizar(i);
+				investigacaoBean.setComesHomeInvestigacao(false);
+				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
+			} else {
+				controller.cadastrar(pessoa);
+				proxView = "album?faces-redirect=true&includeViewParams=true";
+			}
+		}
+		this.addSuccessMessage("Sucesso!");
 		pessoa = new Pessoa();
-		proxView = "/usuario/home?faces-redirect=true";
 		return proxView;
 	}
 
 	public void listarPessoas() {
 		PessoaController controller = new PessoaController();
+
 		this.pessoas = controller.listar();
 	}
 
@@ -128,6 +164,30 @@ public class PessoaBean extends GenericBean {
 
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
+	}
+
+	public Integer getInvestigacao() {
+		return investigacao;
+	}
+
+	public void setInvestigacao(Integer investigacao) {
+		this.investigacao = investigacao;
+	}
+
+	public InvestigacaoBean getInvestigacaoBean() {
+		return investigacaoBean;
+	}
+
+	public void setInvestigacaoBean(InvestigacaoBean investigacaoBean) {
+		this.investigacaoBean = investigacaoBean;
+	}
+
+	public boolean isEditando() {
+		return editando;
+	}
+
+	public void setEditando(boolean editando) {
+		this.editando = editando;
 	}
 
 }

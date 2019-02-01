@@ -14,7 +14,7 @@
 	<ui:composition template="../template/template.xhtml">
 		<ui:define name="ttitle">Cadastro de objeto</ui:define>
 		<ui:define name="tbody">
-			<h:form id="cadastro_objeto" enctype="multipart/form-data">
+			<h:form id="cadastro_pessoa" enctype="multipart/form-data">
 				<h:inputHidden value="#{objetoBean.id}" id="id" />
 				<div class="row">
 					<div class="col-xs-6 col-md-3"></div>
@@ -23,30 +23,30 @@
 							<p:tab title="Cadastro de objeto">
 								<h:panelGrid id="grid" columns="1" style="width:100%;">
 								   
-									<p:outputLabel for="nome" 
-												   value="Nome "	
+									<p:outputLabel for="titulo" 
+												   value="titulo "	
 												   style="margin-top:5%" 
 												   indicateRequired="false"/>
 												   
-									<p:inputText id="nome" 
+									<p:inputText id="titulo" 
 									             requiredMessage="Informe o título"
 										         value="#{objetoBean.nome}" 
 										         style="width:100%"/>
-									  <p:message for="nome" 
+									  <p:message for="titulo" 
 									             display="text" 
 									             showDetail="true" />
 									
-									<p:outputLabel for="descricao" 
-									               value="Descricao " 
+									<p:outputLabel for="historico" 
+									               value="Histórico " 
 									               style="margin-top:5%"
 									               indicateRequired="false"/>
 									               
-									<p:inputTextarea id="descricao" 
+									<p:inputTextarea id="historico" 
 									             	 required="true"
-										         	 requiredMessage="Descrição" 
+										         	 requiredMessage="Histórico" 
 										         	 value="#{objetoBean.descricao}"
 										         	 style="width:100%" />
-									  <p:message for="descricao"
+									  <p:message for="historico"
 									             display="text" 
 									             showDetail="true" />
 									             

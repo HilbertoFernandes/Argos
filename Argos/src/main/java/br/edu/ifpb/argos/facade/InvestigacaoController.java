@@ -1,12 +1,9 @@
 package br.edu.ifpb.argos.facade;
 
 import java.util.List;
-
 import javax.persistence.PersistenceException;
-
 import br.edu.ifpb.argos.dao.InvestigacaoDAO;
 import br.edu.ifpb.argos.dao.PersistenceUtil;
-import br.edu.ifpb.argos.entity.Crime;
 import br.edu.ifpb.argos.entity.Investigacao;
 
 public class InvestigacaoController {
@@ -16,12 +13,6 @@ public class InvestigacaoController {
 		dao.beginTransaction();
 		dao.insert(Investigacao);
 		dao.commit();
-	}
-
-	public void adicionarCrime(Crime crime) {
-		InvestigacaoDAO dao = new InvestigacaoDAO(PersistenceUtil.getCurrentEntityManager());
-		dao.beginTransaction();
-
 	}
 
 	public Investigacao buscar(int id) {

@@ -5,65 +5,70 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <f:metadata>
-	<f:viewParam name="id" value="#{objetoBean.id}" />
-	<f:viewParam name="foto" value="#{objetoBean.foto}" />
-	<f:viewParam name="nome" value="#{objetoBean.nome}" />
-	<f:viewParam name="descricao" value="#{objetoBean.descricao}" />
+	<f:viewParam name="id" value="#{fatoBean.id}" />
+	<f:viewParam name="data" value="#{fatoBean.data}" />
+	<f:viewParam name="titulo" value="#{fatoBean.titulo}" />
+	<f:viewParam name="historico" value="#{fatoBean.descricao}" />
 </f:metadata>
 <h:body>
 	<ui:composition template="../template/template.xhtml">
-		<ui:define name="ttitle">Cadastro de objeto</ui:define>
+		<ui:define name="ttitle">Cadastro de fato</ui:define>
 		<ui:define name="tbody">
-			<h:form id="cadastro_objeto" enctype="multipart/form-data">
-				<h:inputHidden value="#{objetoBean.id}" id="id" />
+			<h:form id="cadastro_fato">
+				<h:inputHidden value="#{fatoBean.id}" id="id" />
 				<div class="row">
 					<div class="col-xs-6 col-md-3"></div>
 					<div class="col-xs-6 col-md-6">
 						<p:tabView>
-							<p:tab title="Cadastro de objeto">
+							<p:tab title="Cadastro de Fato">
 								<h:panelGrid id="grid" columns="1" style="width:100%;">
 								   
-									<p:outputLabel for="nome" 
-												   value="Nome "	
+								   <p:outputLabel for="data" 
+												   value="Data "	
 												   style="margin-top:5%" 
 												   indicateRequired="false"/>
 												   
-									<p:inputText id="nome" 
+								       <p:calendar id="data" 
+								                   value="#{fatoBean.data}"
+										           mode="popup" 
+										           style="margin-left:2%" />
+										<p:message for="data" 
+									               display="text" 
+									               showDetail="true" />
+										
+									<p:outputLabel for="titulo" 
+												   value="titulo "	
+												   style="margin-top:5%" 
+												   indicateRequired="false"/>
+												   
+									<p:inputText id="titulo" 
 									             requiredMessage="Informe o título"
-										         value="#{objetoBean.nome}" 
+										         value="#{fatoBean.titulo}" 
 										         style="width:100%"/>
-									  <p:message for="nome" 
+									  <p:message for="titulo" 
 									             display="text" 
 									             showDetail="true" />
 									
 									<p:outputLabel for="descricao" 
-									               value="Descricao " 
+									               value="Descrição " 
 									               style="margin-top:5%"
 									               indicateRequired="false"/>
 									               
 									<p:inputTextarea id="descricao" 
 									             	 required="true"
 										         	 requiredMessage="Descrição" 
-										         	 value="#{objetoBean.descricao}"
+										         	 value="#{fatoBean.descricao}"
 										         	 style="width:100%" />
 									  <p:message for="descricao"
 									             display="text" 
 									             showDetail="true" />
-									             
-									   <p:fileUpload
-										value="#{objetoBean.foto}" fileLimit="1" id="foto"
-										label="Anexar foto"
-										fileLimitMessage="Você só pode anexar uma foto" mode="simple"
-										invalidFileMessage="Somente arquivos .jpg, .png ou .gif"
-										allowTypes="/(\.|\/)(gif|jpe?g|png)$/" skinSimple="true"
-										style="padding: 5px" /> <spam>(Opcional)</spam>         
 									             
 								</h:panelGrid>
 							</p:tab>
 						</p:tabView>
 						<p:commandButton value="Salvar" 
 				                 ajax="false" 
-								 action="#{objetoBean.salvar}" 
+								 action="#{fatoBean.salvar}" 
 								 class="btn btn-primary" 
 								 style="width:20%;
 								 padding:1%;

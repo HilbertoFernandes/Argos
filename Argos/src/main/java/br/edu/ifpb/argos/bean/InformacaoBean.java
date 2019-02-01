@@ -2,14 +2,13 @@ package br.edu.ifpb.argos.bean;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.PersistenceException;
-
 import br.edu.ifpb.argos.entity.Informacao;
+import br.edu.ifpb.argos.entity.Investigacao;
 import br.edu.ifpb.argos.facade.InformacaoController;
-import br.edu.ifpb.argos.facade.PessoaController;
+import br.edu.ifpb.argos.facade.InvestigacaoController;
 
 @ManagedBean(name = "informacaoBean")
 @ViewScoped
@@ -20,30 +19,42 @@ public class InformacaoBean extends GenericBean implements Serializable {
 	private Integer id = null;
 	private String titulo;
 	private String descricao;
+	private boolean editando = false;
 	private List<Informacao> informacoes;
+	@ManagedProperty("#{investigacaoBean}")
+	private InvestigacaoBean investigacaoBean;
 
 	public String salvar() {
-		InformacaoController controller = new InformacaoController();
 		String proxView = null;
-
+		InformacaoController controller = new InformacaoController();
+		informacao = new Informacao();
 		if (id != null) {
+			editando = true;
 			informacao = controller.buscar(id);
 			informacao.setTitulo(titulo);
 			informacao.setDescricao(descricao);
 			controller.atualizar(informacao);
-			proxView = "/usuario/home?faces-redirect=true";
+			proxView = "lista?faces-redirect=true";
 		} else {
-			try {
-				informacao = new Informacao();
-				informacao.setTitulo(titulo);
-				informacao.setDescricao(descricao);
+			informacao = new Informacao();
+			informacao.setTitulo(titulo);
+			informacao.setDescricao(descricao);
+
+			if (investigacaoBean.isComesHomeInvestigacao()) {
 				controller.cadastrar(informacao);
-				this.addSuccessMessage("Informacao salva com sucesso");
-				proxView = "/usuario/home?faces-redirect=true";
-				informacao = new Informacao();
-			} catch (PersistenceException e) {
-				this.addErrorMessage("Erro ao tentar salvar o usuário.");
+				InvestigacaoController ic = new InvestigacaoController();
+				Investigacao i = ic.buscar(investigacaoBean.getInvestigacao().getId());
+				i.getInformacoes().add(informacao);
+				ic.atualizar(i);
+				investigacaoBean.setComesHomeInvestigacao(false);
+				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
+			} else {
+				proxView = "/usuario/home?faces-redirect=true&includeViewParams=true";
+				controller.cadastrar(informacao);
 			}
+
+			this.addSuccessMessage("Sucesso!");
+			informacao = new Informacao();
 		}
 		return proxView;
 	}
@@ -117,4 +128,19 @@ public class InformacaoBean extends GenericBean implements Serializable {
 		return serialVersionUID;
 	}
 
+	public InvestigacaoBean getInvestigacaoBean() {
+		return investigacaoBean;
+	}
+
+	public void setInvestigacaoBean(InvestigacaoBean investigacaoBean) {
+		this.investigacaoBean = investigacaoBean;
+	}
+
+	public boolean isEditando() {
+		return editando;
+	}
+
+	public void setEditando(boolean editando) {
+		this.editando = editando;
+	}
 }

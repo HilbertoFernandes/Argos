@@ -1,8 +1,6 @@
 package br.edu.ifpb.argos.entity;
 
-import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_INVESTIGACAO")
@@ -55,12 +51,12 @@ public class Investigacao {
 	private List<Local> locais;
 
 	@ManyToMany
-	@JoinTable(name = "investigacao_pessoas", joinColumns = {
+	@JoinTable(name = "investigacao_informacoes", joinColumns = {
 			@JoinColumn(name = "ID_Investigacao") }, inverseJoinColumns = { @JoinColumn(name = "ID_Informacao") })
 	private List<Informacao> informacoes;
 
 	@ManyToMany
-	@JoinTable(name = "investigacao_pessoas", joinColumns = {
+	@JoinTable(name = "investigacao_objetos", joinColumns = {
 			@JoinColumn(name = "ID_Investigacao") }, inverseJoinColumns = { @JoinColumn(name = "ID_Objeto") })
 	private List<Objeto> objetos;
 

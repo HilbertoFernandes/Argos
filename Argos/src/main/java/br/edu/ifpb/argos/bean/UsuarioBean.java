@@ -9,7 +9,6 @@ import javax.faces.bean.ViewScoped;
 import javax.persistence.PersistenceException;
 import br.edu.ifpb.argos.entity.Usuario;
 import br.edu.ifpb.argos.facade.UsuarioController;
-import br.edu.ifpb.argos.util.PasswordUtil;
 
 @ManagedBean(name = "usuarioBean")
 @ViewScoped

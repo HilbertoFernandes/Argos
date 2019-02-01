@@ -22,7 +22,7 @@
 						<p:tabView>
 							<p:tab title="Cadastro de Crime">
 								<h:panelGrid id="grid" columns="1" style="width:100%;">
-								   
+								   <p:panelGrid rendered="#{crimeBean.editando}">
 								   <p:outputLabel for="data" 
 												   value="data "	
 												   style="margin-top:5%" 
@@ -35,7 +35,7 @@
 										<p:message for="titulo" 
 									               display="text" 
 									               showDetail="true" />
-										
+									</p:panelGrid>	
 									<p:outputLabel for="titulo" 
 												   value="titulo "	
 												   style="margin-top:5%" 
