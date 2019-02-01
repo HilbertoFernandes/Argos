@@ -19,9 +19,7 @@
 		<ui:define name="tbody">
 	<h:form id="lista_locais">
 	<h:inputHidden value="#{localBean.id}" id="id" />
-	<h:messages errorStyle="color:red" 
-	            infoStyle="color:blue"
-			    layout="table" />
+	<p:growl id="messages" closable="true" />
 			    <h1 class="display-4" style="font-size: 20pt" align="center">Locais Cadastrados</h1>
 		        <p:dataTable var="local" value="#{localBean.locais}" rows="10" paginator="true">
 				    <p:column headerText="Título">

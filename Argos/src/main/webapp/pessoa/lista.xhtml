@@ -19,8 +19,7 @@
 		<ui:define name="tbody">
 			<h:form id="lista_pessoas">
 				<h:inputHidden value="#{pessoaBean.id}" id="id" />
-				<h:messages errorStyle="color:red" infoStyle="color:blue"
-					layout="table" />
+				<p:growl id="messages" closable="true" />
 				<h1 class="display-4" style="font-size: 20pt" align="center">pessoas
 					Cadastrados</h1>
 				<p:dataTable var="pessoa" value="#{pessoaBean.pessoas}" rows="10"

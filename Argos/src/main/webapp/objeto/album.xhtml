@@ -15,8 +15,8 @@
 	<ui:composition template="../template/template.xhtml">
 		<ui:define name="ttitle">Objeto</ui:define>
 		<ui:define name="tbody">
-
-				<h:form id="album_objetos">
+			<p:growl id="messages" closable="true" />
+			<h:form id="album_objetos">
 				<div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12"
 					align="center" style="margin-top: 1%">
 					<p:dataGrid var="objeto" value="#{objetoBean.objetos}" columns="6"

@@ -18,9 +18,7 @@
 		<ui:define name="ttitle">Usuário</ui:define>
 		<ui:define name="tbody">
 	<h:form id="lista_objetos">
-	<h:messages errorStyle="color:red" 
-	            infoStyle="color:blue"
-			    layout="table" />
+	<p:growl id="messages" closable="true" />
 			    <h1 class="display-4" style="font-size: 20pt" align="center">Objetos Cadastrados</h1>
 		        <p:dataTable var="objeto" value="#{objetoBean.objetos}" rows="10" paginator="true">
 				    <p:column headerText="Nome">
