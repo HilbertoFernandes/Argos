@@ -47,7 +47,7 @@ public class InformacaoBean extends GenericBean implements Serializable {
 				i.getInformacoes().add(informacao);
 				ic.atualizar(i);
 				investigacaoBean.setComesHomeInvestigacao(false);
-				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
+				proxView = "/investigacao/lista?faces-redirect=true&includeViewParams=true";
 			} else {
 				proxView = "/usuario/home?faces-redirect=true&includeViewParams=true";
 				controller.cadastrar(informacao);

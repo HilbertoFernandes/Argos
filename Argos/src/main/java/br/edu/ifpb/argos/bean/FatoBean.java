@@ -51,7 +51,7 @@ public class FatoBean extends GenericBean implements Serializable {
 				i.getFatos().add(fato);
 				ic.atualizar(i);
 				investigacaoBean.setComesHomeInvestigacao(false);
-				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
+				proxView = "/investigacao/lista?faces-redirect=true&includeViewParams=true";
 			} else {
 				proxView = "/usuario/home?faces-redirect=true&includeViewParams=true";
 				controller.cadastrar(fato);

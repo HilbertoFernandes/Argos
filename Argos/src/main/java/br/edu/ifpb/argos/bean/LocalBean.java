@@ -88,7 +88,7 @@ public class LocalBean extends GenericBean {
 				i.getLocais().add(local);
 				ic.atualizar(i);
 				investigacaoBean.setComesHomeInvestigacao(false);
-				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
+				proxView = "/investigacao/lista?faces-redirect=true&includeViewParams=true";
 			} else {
 				proxView = "/usuario/home?faces-redirect=true&includeViewParams=true";
 				controller.cadastrar(local);

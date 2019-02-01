@@ -92,7 +92,7 @@ public class PessoaBean extends GenericBean {
 				i.getPessoas().add(pessoa);
 				ic.atualizar(i);
 				investigacaoBean.setComesHomeInvestigacao(false);
-				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
+				proxView = "/investigacao/lista?faces-redirect=true&includeViewParams=true";
 			} else {
 				controller.cadastrar(pessoa);
 				proxView = "album?faces-redirect=true&includeViewParams=true";
