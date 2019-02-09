@@ -86,6 +86,27 @@ public class CrimeBean extends GenericBean implements Serializable {
 		this.crimes = controller.listar();
 	}
 
+	public String pesquisarCrimes() {
+		CrimeController controller = new CrimeController();
+		this.crimes = controller.pesquisar(argumento);
+
+		if (crimes.isEmpty())
+			this.addErrorMessage("Não há crimes para o argumento informado.");
+		return "busca?faces-redirect=true&includeViewParams=true";
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public InvestigacaoBean getInvestigacaoBean() {
+		return investigacaoBean;
+	}
+
+	public void setInvestigacaoBean(InvestigacaoBean investigacaoBean) {
+		this.investigacaoBean = investigacaoBean;
+	}
+
 	public List<Crime> getCrimes() {
 		return crimes;
 	}
@@ -156,27 +177,6 @@ public class CrimeBean extends GenericBean implements Serializable {
 
 	public void setEditando(boolean editando) {
 		this.editando = editando;
-	}
-
-	public String pesquisarCrimes() {
-		CrimeController controller = new CrimeController();
-		this.crimes = controller.pesquisar(argumento);
-
-		if (crimes.isEmpty())
-			this.addErrorMessage("Não há crimes para o argumento informado.");
-		return "busca?faces-redirect=true&includeViewParams=true";
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public InvestigacaoBean getInvestigacaoBean() {
-		return investigacaoBean;
-	}
-
-	public void setInvestigacaoBean(InvestigacaoBean investigacaoBean) {
-		this.investigacaoBean = investigacaoBean;
 	}
 
 }

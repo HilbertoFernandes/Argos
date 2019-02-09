@@ -86,58 +86,6 @@ public class InvestigacaoBean extends GenericBean {
 		this.investigacoes = controller.listar();
 	}
 
-	public String goHome() {
-		return "/usuario/home?faces-redirect=true";
-	}
-
-	public String goAdicionarPessoa() {
-		return "/investigacao/cadastro_pessoa?faces-redirect=true";
-	}
-
-	public String goAdicionarCrime() {
-		return "/investigacao/cadastro_crime?faces-redirect=true";
-	}
-
-	public String goAdicionarFato() {
-		return "/investigacao/cadastro_fato?faces-redirect=true";
-	}
-
-	public String goAdicionarObjeto() {
-		return "/investigacao/cadastro_objeto?faces-redirect=true";
-	}
-
-	public String goAdicionarLocal() {
-		return "/investigacao/cadastro_local?faces-redirect=true";
-	}
-
-	public String goAdicionarInformacao() {
-		return "/investigacao/cadastro_informacao?faces-redirect=true";
-	}
-
-	public String goAssociarPessoa() {
-		return "/investigacao/lista_pessoa?faces-redirect=true";
-	}
-
-	public String goAssociarCrime() {
-		return "/investigacao/lista_pessoa?faces-redirect=true";
-	}
-
-	public String goAssociarFato() {
-		return "/investigacao/lista_fato?faces-redirect=true";
-	}
-
-	public String goAssociarObjeto() {
-		return "/investigacao/lista_objeto?faces-redirect=true";
-	}
-
-	public String goAssociarLocal() {
-		return "/investigacao/lista_local?faces-redirect=true";
-	}
-
-	public String goAssociarInformacao() {
-		return "/investigacao/lista_informacao?faces-redirect=true";
-	}
-
 	public String goHomeInvestigacao(int investigacao) {
 		InvestigacaoController controller = new InvestigacaoController();
 		this.comesHomeInvestigacao = true;
@@ -377,6 +325,58 @@ public class InvestigacaoBean extends GenericBean {
 
 	public void setEditando(boolean editando) {
 		this.editando = editando;
+	}
+
+	public String goHome() {
+		return "/usuario/home?faces-redirect=true";
+	}
+
+	public String goAdicionarPessoa() {
+		return "/investigacao/cadastro_pessoa?faces-redirect=true";
+	}
+
+	public String goAdicionarCrime() {
+		return "/investigacao/cadastro_crime?faces-redirect=true";
+	}
+
+	public String goAdicionarFato() {
+		return "/investigacao/cadastro_fato?faces-redirect=true";
+	}
+
+	public String goAdicionarObjeto() {
+		return "/investigacao/cadastro_objeto?faces-redirect=true";
+	}
+
+	public String goAdicionarLocal() {
+		return "/investigacao/cadastro_local?faces-redirect=true";
+	}
+
+	public String goAdicionarInformacao() {
+		return "/investigacao/cadastro_informacao?faces-redirect=true";
+	}
+
+	public String goAssociarPessoa() {
+		return "/investigacao/lista_pessoa?faces-redirect=true";
+	}
+
+	public String goAssociarCrime() {
+		return "/investigacao/lista_pessoa?faces-redirect=true";
+	}
+
+	public String goAssociarFato() {
+		return "/investigacao/lista_fato?faces-redirect=true";
+	}
+
+	public String goAssociarObjeto() {
+		return "/investigacao/lista_objeto?faces-redirect=true";
+	}
+
+	public String goAssociarLocal() {
+		return "/investigacao/lista_local?faces-redirect=true";
+	}
+
+	public String goAssociarInformacao() {
+		return "/investigacao/lista_informacao?faces-redirect=true";
 	}
 
 }
