@@ -29,6 +29,7 @@ public class PessoaBean extends GenericBean {
 	private String apelido;
 	private String historico;
 	private Pessoa pessoa;
+	private String argumento;
 	private boolean editando = false;
 	private UploadedFile foto;
 	private List<Pessoa> pessoas;
@@ -92,7 +93,7 @@ public class PessoaBean extends GenericBean {
 				i.getPessoas().add(pessoa);
 				ic.atualizar(i);
 				investigacaoBean.setComesHomeInvestigacao(false);
-				proxView = "/investigacao/lista?faces-redirect=true&includeViewParams=true";
+				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
 			} else {
 				controller.cadastrar(pessoa);
 				proxView = "album?faces-redirect=true&includeViewParams=true";
@@ -105,16 +106,34 @@ public class PessoaBean extends GenericBean {
 
 	public String editar(Pessoa pessoa) {
 		this.nome = pessoa.getNome();
-		this.apelido =pessoa.getApelido();
+		this.apelido = pessoa.getApelido();
 		this.historico = pessoa.getHistorico();
 		this.editando = true;
 		return "cadastro?faces-redirect=true&includeViewParams=true";
+	}
+
+	public String excluir(Pessoa pessoa) {
+		String proxima_pagina = null;
+		PessoaController controller = new PessoaController();
+		controller.excluir(pessoa);
+		this.addSuccessMessage("Pessoa excluída com sucesso");
+		proxima_pagina = "lista?faces-redirect=true";
+		return proxima_pagina;
 	}
 
 	public void listarPessoas() {
 		PessoaController controller = new PessoaController();
 
 		this.pessoas = controller.listar();
+	}
+
+	public void pesquisar() {
+		if (!argumento.trim().isEmpty()) {
+			PessoaController controller = new PessoaController();
+			this.pessoas = controller.pesquisar(argumento);
+		} else {
+			this.pessoas.clear();
+		}
 	}
 
 	public String goHome() {
@@ -201,13 +220,12 @@ public class PessoaBean extends GenericBean {
 		this.editando = editando;
 	}
 
-	public String excluir(Pessoa pessoa) {
-		String proxima_pagina = null;
-		PessoaController controller = new PessoaController();
-		controller.excluir(pessoa);
-		this.addSuccessMessage("Pessoa excluída com sucesso");
-		proxima_pagina = "lista?faces-redirect=true";
-		return proxima_pagina;
+	public String getArgumento() {
+		return argumento;
+	}
+
+	public void setArgumento(String argumento) {
+		this.argumento = argumento;
 	}
 
 }

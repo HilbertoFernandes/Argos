@@ -6,6 +6,8 @@ import javax.persistence.PersistenceException;
 import br.edu.ifpb.argos.dao.PersistenceUtil;
 import br.edu.ifpb.argos.dao.PessoaDAO;
 import br.edu.ifpb.argos.entity.Pessoa;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 public class PessoaController {
 
@@ -61,5 +63,15 @@ public class PessoaController {
 		PessoaDAO dao = new PessoaDAO(PersistenceUtil.getCurrentEntityManager());
 		Pessoa p = dao.find(id);
 		return p;
+	}
+	
+	public List<Pessoa> pesquisar(String argumento) {
+		Query q = PersistenceUtil.getEntityManager().createQuery(
+				"select p from Pessoa p where upper(p.nome) LIKE :argumento OR upper(p.apelido) LIKE :argumento OR upper(p.historico) LIKE :argumento");
+		argumento = argumento.toUpperCase();
+		q.setParameter("argumento", "%" + argumento + "%");
+		@SuppressWarnings("unchecked")
+		List<Pessoa> pessoas = (List<Pessoa>) q.getResultList();
+		return pessoas;
 	}
 }

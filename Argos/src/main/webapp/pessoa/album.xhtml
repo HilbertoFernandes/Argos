@@ -15,22 +15,38 @@
 	<ui:composition template="../template/template.xhtml">
 		<ui:define name="ttitle">Usuário</ui:define>
 		<ui:define name="tbody">
-<p:growl id="messages" closable="true" />
-				<h:form id="album_pessoas">
+			<p:growl id="messages" closable="true" />
+			<h:form id="album_pessoas">
+
+				<h1 class="display-4" style="font-size: 20pt" align="center">Pessoas
+					Cadastradas</h1>
+				<br />
+				<b>Clique no nome para abrir os dados da Pessoa</b>
+
 				<div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12"
-					align="center" style="margin-top: 1%">
-					<p:dataGrid var="pessoa" value="#{pessoaBean.pessoas}" columns="6"
-						layout="grid" rows="12" paginator="true" id="pessoas"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-						rowsPerPageTemplate="6,12,16">
-						<p:panel id="pnl"
-							style="text-align:center; 
-				         width:200px">
-							<h:panelGrid columns="1" style="width:100%">
+					 align="center" 
+					 style="margin-top: 1%">
+					<p:dataGrid var="pessoa" 
+					            value="#{pessoaBean.pessoas}" 
+					            columns="6"
+						        layout="grid" 
+						        rows="12" 
+						        paginator="true" 
+						        id="pessoas"
+						        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						        rowsPerPageTemplate="6,12,16">
+					   <p:panel id="pnl"
+							    style="text-align:center; 
+				                width:200px">
+							<h:panelGrid columns="1" 
+							             style="width:100%">
 								<p:graphicImage value="#{pessoa.foto}" stream="false"
 									width="100%" />
-								<br />Nome: #{pessoa.nome}
-				        <br />Apelido: #{pessoa.apelido}
+								<br />
+
+								<p:commandLink action="#{pessoaBean.goHomePessoa}"
+									value="Nome: #{pessoa.nome}" />
+								<br />Apelido: #{pessoa.apelido}
                 </h:panelGrid>
 						</p:panel>
 					</p:dataGrid>

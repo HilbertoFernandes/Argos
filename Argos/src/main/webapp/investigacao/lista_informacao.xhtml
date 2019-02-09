@@ -32,11 +32,10 @@
 					<p:column headerText="Descrição">
 						<h:outputText value="#{informacao.descricao}" />
 					</p:column>
-					<p:column headerText="Ações" width="12%">
-						<h:commandLink action="#{informacaoBean.editar(informacao)}"
-							value="Editar" style=" color:orange; padding:10px" />
-						<h:commandLink action="#{informacaoBean.excluir(informacao)}"
-							value="Excluir" style="color:red; padding:10px" />
+					<p:column headerText="Associar" width="10%">
+						<h:commandLink action="#{investigacaoBean.associarInformacao(informacao)}">
+						<span class="glyphicon glyphicon-plus" style="margin-left:40%"></span>
+						 </h:commandLink>
 					</p:column>
 				</p:dataTable>
 			</h:form>

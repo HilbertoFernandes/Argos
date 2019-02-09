@@ -53,7 +53,7 @@ public class CrimeBean extends GenericBean implements Serializable {
 				i.getCrimes().add(crime);
 				ic.atualizar(i);
 				investigacaoBean.setComesHomeInvestigacao(false);
-				proxView = "/investigacao/lista?faces-redirect=true&includeViewParams=true";
+				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
 			} else {
 				proxView = "/usuario/home?faces-redirect=true&includeViewParams=true";
 				controller.cadastrar(crime);

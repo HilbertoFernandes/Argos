@@ -139,6 +139,102 @@ public class InvestigacaoBean extends GenericBean {
 		return "/investigacao/home?faces-redirect=true&includeViewParams=true";
 	}
 
+	public String associarPessoa(Pessoa pessoa) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getPessoas().add(pessoa);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String associarCrime(Crime crime) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getCrimes().add(crime);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String associarObjeto(Objeto objeto) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getObjetos().add(objeto);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String associarLocal(Local local) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getLocais().add(local);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String associarFato(Fato fato) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getFatos().add(fato);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String associarInformacao(Informacao informacao) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getInformacoes().add(informacao);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String excluirInformacao(Informacao informacao) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getInformacoes().remove(informacao);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String excluirObjeto(Objeto objeto) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getObjetos().remove(objeto);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String excluirCrime(Crime crime) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getCrimes().remove(crime);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String excluirFato(Fato fato) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getFatos().remove(fato);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String excluirPessoa(Pessoa pessoa) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getPessoas().remove(pessoa);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public String excluirLocal(Local local) {
+		InvestigacaoController controller = new InvestigacaoController();
+		this.investigacao = controller.buscar(this.investigacao.getId());
+		this.investigacao.getLocais().remove(local);
+		controller.atualizar(investigacao);
+		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
 	public Integer getId() {
 		return id;
 	}

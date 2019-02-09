@@ -28,17 +28,13 @@
 					<p:column headerText="Nome">
 						<h:outputText value="#{pessoa.nome}" />
 					</p:column>
-					<p:column headerText="Título">
-						<h:outputText value="#{pessoa.nome}" />
-					</p:column>
 					<p:column headerText="Apelido">
 						<h:outputText value="#{pessoa.apelido}" />
 					</p:column>
-					<p:column headerText="Ações" width="12%">
-						<h:commandLink action="#{pessoaBean.editar(pessoa)}" value="Editar"
-							style=" color:orange; padding:10px" />
-						<h:commandLink action="#{pessoaBean.excluir(pessoa)}" value="Excluir"
-							style="color:red; padding:10px" />
+					<p:column headerText="Associar" width="10%">
+						<h:commandLink action="#{investigacaoBean.associarPessoa(pessoa)}">
+						<span class="glyphicon glyphicon-plus" style="margin-left:40%"></span>
+						 </h:commandLink>
 					</p:column>
 				</p:dataTable>
 			</h:form>

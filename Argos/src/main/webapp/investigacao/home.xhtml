@@ -4,15 +4,6 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<!-- <f:metadata> -->
-<!-- 	<f:viewParam name="investigacaoBean" value="#{pessoaBean.id_selecioanda}" /> -->
-<!-- 	<f:event type="preRenderView" listener="#{pessoaBean.listarPessoas}" /> -->
-<!-- 	<f:event type="preRenderView" listener="#{objetoBean.listarObjetos}" /> -->
-<!-- 	<f:event type="preRenderView" listener="#{localBean.listarLocais}" /> -->
-<!-- 	<f:event type="preRenderView" listener="#{fatoBean.listarFatos}" /> -->
-<!-- 	<f:event type="preRenderView" listener="#{informacaoBean.listarInformacoes}" /> -->
-<!-- </f:metadata> -->
-
 <h:body>
 	<ui:composition template="../template/template.xhtml">
 		<ui:define name="ttitle">Investigação</ui:define>
@@ -21,8 +12,8 @@
 				<div class="row">
 					<div class="col-xs-6 col-md-1"></div>
 					<div class="col-xs-3 col-md-12">
-					<p:growl id="messages" closable="true" />
-					<h1 class="display-4" style="font-size: 20pt" align="center">#{investigacaoBean.investigacao.titulo}</h1> 
+						<p:growl id="messages" closable="true" />
+						<h1 class="display-4" style="font-size: 20pt" align="center">#{investigacaoBean.investigacao.titulo}</h1>
 						<p:tabView>
 							<p:tab title="Pessoas">
 								<h:panelGrid columns="1" cellpadding="10">
@@ -33,6 +24,10 @@
 										</p:column>
 										<p:column headerText="Apelido">
 											<h:outputText value="#{pessoa.apelido}" />
+										</p:column>
+										<p:column headerText="Ações" width="12%">
+											<h:commandLink action="#{investigacaoBean.excluirPessoa(pessoa)}"
+												value="Excluir" style="color:red; padding:10px" />
 										</p:column>
 									</p:dataTable>
 								</h:panelGrid>
@@ -50,6 +45,10 @@
 											<p:column headerText="Descrição">
 												<h:outputText value="#{informacao.descricao}" />
 											</p:column>
+											<p:column headerText="Ações" width="12%">
+											<h:commandLink action="#{investigacaoBean.excluirInformacao(informacao)}"
+												value="Excluir" style="color:red; padding:10px" />
+										</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -67,6 +66,10 @@
 											<p:column headerText="Descrição">
 												<h:outputText value="#{objeto.descricao}" />
 											</p:column>
+											<p:column headerText="Ações" width="12%">
+											<h:commandLink action="#{investigacaoBean.excluirObjeto(objeto)}"
+												value="Excluir" style="color:red; padding:10px" />
+										</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -87,6 +90,10 @@
 											<p:column headerText="Descrição">
 												<h:outputText value="#{local.descricao}" />
 											</p:column>
+											<p:column headerText="Ações" width="12%">
+											<h:commandLink action="#{investigacaoBean.excluirLocal(local)}"
+												value="Excluir" style="color:red; padding:10px" />
+										</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -106,13 +113,17 @@
 											<p:column headerText="Título">
 												<h:outputText value="#{crime.titulo}" />
 											</p:column>
+											<p:column headerText="Ações" width="12%">
+											<h:commandLink action="#{investigacaoBean.excluirCrime(crime)}"
+												value="Excluir" style="color:red; padding:10px" />
+										</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
 							</p:tab>
 
 
-							<p:tab title="Fato">
+							<p:tab title="Fatos">
 								<h:panelGrid columns="1" cellpadding="10">
 									<h:panelGrid columns="1" cellpadding="10">
 										<p:dataTable var="fato" value="#{investigacaoBean.fatos}"
@@ -126,27 +137,25 @@
 												<h:outputText value="#{fato.titulo}" />
 											</p:column>
 											<p:column headerText="Ações" width="12%">
-												<h:commandLink action="#"
-													value="Editar" style=" color:orange; padding:10px" />
-												<h:commandLink action="#"
-													value="Excluir" style="color:red; padding:10px" />
-											</p:column>
+											<h:commandLink action="#{investigacaoBean.excluirFato(fato)}"
+												value="Excluir" style="color:red; padding:10px" />
+										</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
 							</p:tab>
 						</p:tabView>
-						
+
 						<!-- ADICIONAR PESSOA -->
 
-						<button type="button"
-								data-toggle="modal" data-target="#myModalPessoa"
-								style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 5%">Adicionar
-								Pessoa</button>
-							<!-- Modal -->
-							<div id="myModalPessoa" class="modal fade" role="dialog">
-								<div class="modal-dialog">
-									<!-- Modal content-->
+						<button type="button" data-toggle="modal"
+							data-target="#myModalPessoa"
+							style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 5%">Adicionar
+							Pessoa</button>
+						<!-- Modal -->
+						<div id="myModalPessoa" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"></button>
@@ -166,7 +175,7 @@
 												style="width:50%;
 								                    padding:1%;
 								                    margin:3%;
-				                                    margin-left:27%" disabled="true"/>
+				                                    margin-left:27%" />
 										</div>
 									</div>
 								</div>
@@ -174,17 +183,17 @@
 						</div>
 
 						<!-- FIM ADICIONAR PESSOA -->
-						
+
 						<!-- ADICIONAR CRIME -->
 
-						<button type="button"
-								data-toggle="modal" data-target="#myModalCrime"
-								style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
-								Crime</button>
-							<!-- Modal -->
-							<div id="myModalCrime" class="modal fade" role="dialog">
-								<div class="modal-dialog">
-									<!-- Modal content-->
+						<button type="button" data-toggle="modal"
+							data-target="#myModalCrime"
+							style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
+							Crime</button>
+						<!-- Modal -->
+						<div id="myModalCrime" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"></button>
@@ -204,7 +213,7 @@
 												style="width:50%;
 								                    padding:1%;
 								                    margin:3%;
-				                                    margin-left:27%" disabled="true"/>
+				                                    margin-left:27%" />
 										</div>
 									</div>
 								</div>
@@ -215,14 +224,13 @@
 
 						<!-- ADICIONAR FATO -->
 
-						<button type="button"
-								data-toggle="modal" data-target="#myModal"
-								style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
-								Fato</button>
-							<!-- Modal -->
-							<div id="myModal" class="modal fade" role="dialog">
-								<div class="modal-dialog">
-									<!-- Modal content-->
+						<button type="button" data-toggle="modal" data-target="#myModal"
+							style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
+							Fato</button>
+						<!-- Modal -->
+						<div id="myModal" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"></button>
@@ -242,7 +250,7 @@
 												style="width:50%;
 								                    padding:1%;
 								                    margin:3%;
-				                                    margin-left:27%" disabled="true"/>
+				                                    margin-left:27%" />
 										</div>
 									</div>
 								</div>
@@ -253,8 +261,7 @@
 
 						<!-- ADICIONAR LOCAL -->
 
-						<button type="button"
-							data-toggle="modal" data-target="#myModal1"
+						<button type="button" data-toggle="modal" data-target="#myModal1"
 							style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
 							Local</button>
 						<!-- Modal -->
@@ -280,7 +287,7 @@
 												style="width:50%;
 								                    padding:1%;
 								                    margin:3%;
-				                                    margin-left:27%" disabled="true"/>
+				                                    margin-left:27%" />
 										</div>
 									</div>
 								</div>
@@ -291,8 +298,8 @@
 
 						<!-- ADICIONAR OBJETO -->
 
-						<button type="button"
-							data-toggle="modal" data-target="#myModalObjeto"
+						<button type="button" data-toggle="modal"
+							data-target="#myModalObjeto"
 							style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
 							Objeto</button>
 						<!-- Modal -->
@@ -318,24 +325,24 @@
 												style="width:50%;
 								                    padding:1%;
 								                    margin:3%;
-				                                    margin-left:27%" disabled="true"/>
+				                                    margin-left:27%" />
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<!-- FIM ADICIONAR OBJETO -->
-						
+
 						<!-- ADICIONAR INFORMAÇÃO -->
 
-						<button type="button"
-								data-toggle="modal" data-target="#myModalInformacao"
-								style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
-								Informação</button>
-							<!-- Modal -->
-							<div id="myModalInformacao" class="modal fade" role="dialog">
-								<div class="modal-dialog">
-									<!-- Modal content-->
+						<button type="button" data-toggle="modal"
+							data-target="#myModalInformacao"
+							style="width: 13%; margin: 1%; padding: 1px; margin-left: 1%">Adicionar
+							Informação</button>
+						<!-- Modal -->
+						<div id="myModalInformacao" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"></button>
@@ -343,19 +350,21 @@
 									</div>
 									<div class="modal-body">
 										<div class="row">
-											<p:commandButton value="Cadastrar e Adicionar nova informação"
-												ajax="false" action="#{investigacaoBean.goAdicionarInformacao}"
+											<p:commandButton
+												value="Cadastrar e Adicionar nova informação" ajax="false"
+												action="#{investigacaoBean.goAdicionarInformacao}"
 												style="width:70%;
 								                    padding:1%;
 								                    margin:3%;
 				                                    margin-left:10%" />
 
 											<p:commandButton value="Associar informação já cadastrada"
-												ajax="false" action="#{investigacaoBean.goAssociarInformacao}"
+												ajax="false"
+												action="#{investigacaoBean.goAssociarInformacao}"
 												style="width:70%;
 								                    padding:1%;
 								                    margin:3%;
-				                                    margin-left:10%" disabled="true"/>
+				                                    margin-left:10%" />
 										</div>
 									</div>
 								</div>
@@ -363,6 +372,7 @@
 						</div>
 
 						<!-- FIM ADICIONAR INFORMAÇÃO -->
+
 					</div>
 				</div>
 			</h:form>

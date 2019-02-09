@@ -74,7 +74,7 @@ public class ObjetoBean extends GenericBean {
 				i.getObjetos().add(objeto);
 				ic.atualizar(i);
 				investigacaoBean.setComesHomeInvestigacao(false);
-				proxView = "/investigacao/lista?faces-redirect=true&includeViewParams=true";
+				proxView = "/investigacao/home?faces-redirect=true&includeViewParams=true";
 			} else {
 				proxView = "/usuario/home?faces-redirect=true&includeViewParams=true";
 				controller.cadastrar(objeto);

@@ -14,6 +14,9 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
 </h:head>
 
+<f:metadata>
+	<f:viewParam name="pessoas" value="#{pessoaBean.pessoas}" />
+</f:metadata>
 
 <h:body>
 	<ui:composition template="../template/template.xhtml">
@@ -34,8 +37,33 @@
 					</h1>
 
 					<div>
-						<input type="text" class="form-control"
-							style="width: 40%; box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.5);" />
+						<p:inputText id="counter" value="#{pessoaBean.argumento}"
+							style="width: 40%; 
+							         box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.5);">
+							<p:ajax event="keyup" update="pessoas"
+								listener="#{pessoaBean.pesquisar}">
+							</p:ajax>
+						</p:inputText>
+
+						<p:ajax event="keyup" update="pessoas"
+							listener="#{pessoaBean.pesquisar}" />
+
+						<p:dataTable id="pessoas" 
+						             var="p" 
+						             value="#{pessoaBean.pessoas}"
+						             emptyMessage="Nenhum Registro Encontrado" 
+							paginatorTemplate="  {PreviousPageLink} {NextPageLink}"
+							paginator="true" rows="20"
+							style="margin-bottom:5px;
+									 scrollable:true; 
+							         padding:1px;" >
+							<p:column>
+                         #{p.nome}
+                         </p:column>
+							<p:column>
+                         #{p.apelido}
+                         </p:column>
+						</p:dataTable>
 					</div>
 				</div>
 			</h:form>
