@@ -132,4 +132,51 @@ public class Investigacao {
 		this.descricao = descricao;
 	}
 
+	@Override
+	public String toString() {
+
+		String pessoas_investigadas = "";
+		String crimes_investigados = "";
+		String fatos_investigados = "";
+		String objetos_investigados = "";
+		String locais_investigados = "";
+		String informacoes_investigadas = "";
+
+		for (Pessoa pessoa : this.pessoas) {
+			pessoas_investigadas = pessoas_investigadas + " Nome :" + pessoa.getNome() + " Apelido :"
+					+ pessoa.getApelido() + "\n";
+		}
+
+		for (Fato fato : this.fatos) {
+			fatos_investigados = fatos_investigados + " Título :" + fato.getTitulo() + " Apelido :"
+					+ fato.getDescricao() + "\n";
+		}
+
+		for (Crime crime : this.crimes) {
+			crimes_investigados = crimes_investigados + " Título :" + crime.getTitulo() + " Histórico :"
+					+ crime.getHistorico() + "\n";
+		}
+
+		for (Objeto objeto : this.objetos) {
+			objetos_investigados = objetos_investigados + " Nome :" + objeto.getNome() + " Descrição :"
+					+ objeto.getDescricao() + "\n";
+		}
+
+		for (Local local : this.locais) {
+			locais_investigados = locais_investigados + " Título :" + local.getTitulo() + " Apelido :"
+					+ local.getDescricao() + "\n";
+		}
+
+		for (Informacao informacao : this.informacoes) {
+			informacoes_investigadas = informacoes_investigadas + " Nome :" + informacao.getTitulo() + " Apelido :"
+					+ informacao.getDescricao() + "\n";
+		}
+		String retorno;
+		retorno = "\n\nTítulo :" + this.titulo + "\n\n" + "\n\nPessoas :\n" + pessoas_investigadas + "\n\nCrimes :\n"
+				+ crimes_investigados + "\n\nFatos :\n" + fatos_investigados + "\n\nObjetos :\n" + objetos_investigados
+				+ "\n\nLocais :\n" + locais_investigados + "\n\nInformações :\n" + informacoes_investigadas;
+
+		return retorno;
+	}
+
 }

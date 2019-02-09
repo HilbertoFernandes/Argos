@@ -17,8 +17,8 @@
 						<p:tabView>
 							<p:tab title="Pessoas">
 								<h:panelGrid columns="1" cellpadding="10">
-									<p:dataTable var="pessoa" value="#{investigacaoBean.pessoas}"
-										rows="10" paginator="true">
+									<p:dataTable id="inv" var="pessoa"
+										value="#{investigacaoBean.pessoas}" rows="10" paginator="true">
 										<p:column headerText="Nome">
 											<h:outputText value="#{pessoa.nome}" />
 										</p:column>
@@ -26,7 +26,8 @@
 											<h:outputText value="#{pessoa.apelido}" />
 										</p:column>
 										<p:column headerText="Ações" width="12%">
-											<h:commandLink action="#{investigacaoBean.excluirPessoa(pessoa)}"
+											<h:commandLink
+												action="#{investigacaoBean.excluirPessoa(pessoa)}"
 												value="Excluir" style="color:red; padding:10px" />
 										</p:column>
 									</p:dataTable>
@@ -46,9 +47,10 @@
 												<h:outputText value="#{informacao.descricao}" />
 											</p:column>
 											<p:column headerText="Ações" width="12%">
-											<h:commandLink action="#{investigacaoBean.excluirInformacao(informacao)}"
-												value="Excluir" style="color:red; padding:10px" />
-										</p:column>
+												<h:commandLink
+													action="#{investigacaoBean.excluirInformacao(informacao)}"
+													value="Excluir" style="color:red; padding:10px" />
+											</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -67,9 +69,10 @@
 												<h:outputText value="#{objeto.descricao}" />
 											</p:column>
 											<p:column headerText="Ações" width="12%">
-											<h:commandLink action="#{investigacaoBean.excluirObjeto(objeto)}"
-												value="Excluir" style="color:red; padding:10px" />
-										</p:column>
+												<h:commandLink
+													action="#{investigacaoBean.excluirObjeto(objeto)}"
+													value="Excluir" style="color:red; padding:10px" />
+											</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -91,9 +94,10 @@
 												<h:outputText value="#{local.descricao}" />
 											</p:column>
 											<p:column headerText="Ações" width="12%">
-											<h:commandLink action="#{investigacaoBean.excluirLocal(local)}"
-												value="Excluir" style="color:red; padding:10px" />
-										</p:column>
+												<h:commandLink
+													action="#{investigacaoBean.excluirLocal(local)}"
+													value="Excluir" style="color:red; padding:10px" />
+											</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -114,9 +118,10 @@
 												<h:outputText value="#{crime.titulo}" />
 											</p:column>
 											<p:column headerText="Ações" width="12%">
-											<h:commandLink action="#{investigacaoBean.excluirCrime(crime)}"
-												value="Excluir" style="color:red; padding:10px" />
-										</p:column>
+												<h:commandLink
+													action="#{investigacaoBean.excluirCrime(crime)}"
+													value="Excluir" style="color:red; padding:10px" />
+											</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -137,9 +142,10 @@
 												<h:outputText value="#{fato.titulo}" />
 											</p:column>
 											<p:column headerText="Ações" width="12%">
-											<h:commandLink action="#{investigacaoBean.excluirFato(fato)}"
-												value="Excluir" style="color:red; padding:10px" />
-										</p:column>
+												<h:commandLink
+													action="#{investigacaoBean.excluirFato(fato)}"
+													value="Excluir" style="color:red; padding:10px" />
+											</p:column>
 										</p:dataTable>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -150,7 +156,7 @@
 
 						<button type="button" data-toggle="modal"
 							data-target="#myModalPessoa"
-							style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 5%">Adicionar
+							style="width: 13%; margin: 1%; float: none; padding: 1px; margin-left: 1%">Adicionar
 							Pessoa</button>
 						<!-- Modal -->
 						<div id="myModalPessoa" class="modal fade" role="dialog">
@@ -365,14 +371,21 @@
 								                    padding:1%;
 								                    margin:3%;
 				                                    margin-left:10%" />
+
+
+
+
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<h:commandLink action="#{investigacaoBean.investigacaoPDF}">
+							<h:graphicImage value="/resources/imagens/pdf.png" width="5%" />
+						</h:commandLink>
+
 
 						<!-- FIM ADICIONAR INFORMAÇÃO -->
-
 					</div>
 				</div>
 			</h:form>

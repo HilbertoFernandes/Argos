@@ -2,22 +2,31 @@ package br.edu.ifpb.argos.bean;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
 import org.primefaces.model.UploadedFile;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Image;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
+
 import br.edu.ifpb.argos.entity.Investigacao;
-import br.edu.ifpb.argos.entity.Local;
-import br.edu.ifpb.argos.entity.Objeto;
 import br.edu.ifpb.argos.entity.Pessoa;
 import br.edu.ifpb.argos.facade.InvestigacaoController;
-import br.edu.ifpb.argos.facade.ObjetoController;
 import br.edu.ifpb.argos.facade.PessoaController;
 
 @ManagedBean(name = "pessoaBean")
@@ -119,6 +128,38 @@ public class PessoaBean extends GenericBean {
 		this.addSuccessMessage("Pessoa excluída com sucesso");
 		proxima_pagina = "lista?faces-redirect=true";
 		return proxima_pagina;
+	}
+
+	public void pessoaPDF(Pessoa pessoa) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		response.setContentType("application/pdf");
+		response.setHeader("Content-disposition", "inline=filename=file.pdf");
+		try {
+			Document document = new Document();
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			PdfWriter.getInstance(document, baos);
+			document.open();
+		
+			document.add(Image.getInstance(String.format(FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\") + pessoa.getFoto())));
+			document.add(new Paragraph("Nome :"+pessoa.getNome()));
+			document.add(new Paragraph("Apelido : "+ pessoa.getApelido()));
+			document.add(new Paragraph("Histórico :"+ pessoa.getHistorico()));
+			document.close();
+			response.setHeader("Expires", "0");
+			response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+			response.setHeader("Pragma", "public");
+			response.setContentType("application/pdf");
+			response.setContentLength(baos.size());
+			ServletOutputStream os = response.getOutputStream();
+			baos.writeTo(os);
+			os.flush();
+			os.close();
+		} catch (DocumentException e) {
+		} catch (IOException e) {
+		} catch (Exception ex) {
+		}
+		context.responseComplete();
 	}
 
 	public void listarPessoas() {

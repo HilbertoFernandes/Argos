@@ -1,8 +1,20 @@
 package br.edu.ifpb.argos.bean;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
+
 import br.edu.ifpb.argos.entity.Crime;
 import br.edu.ifpb.argos.entity.Fato;
 import br.edu.ifpb.argos.entity.Informacao;
@@ -233,6 +245,34 @@ public class InvestigacaoBean extends GenericBean {
 		this.investigacao.getLocais().remove(local);
 		controller.atualizar(investigacao);
 		return this.goHomeInvestigacao(this.investigacao.getId());
+	}
+
+	public void investigacaoPDF() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		response.setContentType("application/pdf");
+		response.setHeader("Content-disposition", "inline=filename=file.pdf");
+		try {
+			Document document = new Document();
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			PdfWriter.getInstance(document, baos);
+			document.open();
+			document.add(new Paragraph(investigacao.toString()));
+			document.close();
+			response.setHeader("Expires", "0");
+			response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+			response.setHeader("Pragma", "public");
+			response.setContentType("application/pdf");
+			response.setContentLength(baos.size());
+			ServletOutputStream os = response.getOutputStream();
+			baos.writeTo(os);
+			os.flush();
+			os.close();
+		} catch (DocumentException e) {
+		} catch (IOException e) {
+		} catch (Exception ex) {
+		}
+		context.responseComplete();
 	}
 
 	public Integer getId() {

@@ -22,6 +22,7 @@
 				<p:growl id="messages" closable="true" />
 				<h1 class="display-4" style="font-size: 20pt" align="center">pessoas
 					Cadastrados</h1>
+						<b>Caso esteja sendo investigada a pessoa não será excluida</b>
 				<p:dataTable var="pessoa" value="#{pessoaBean.pessoas}" rows="10"
 					paginator="true">
 					<p:column headerText="Nome">
@@ -33,11 +34,14 @@
 					<p:column headerText="Apelido">
 						<h:outputText value="#{pessoa.apelido}" />
 					</p:column>
-					<p:column headerText="Ações" width="12%">
-						<h:commandLink action="#{pessoaBean.editar(pessoa)}" value="Editar"
-							style=" color:orange; padding:10px" />
-						<h:commandLink action="#{pessoaBean.excluir(pessoa)}" value="Excluir"
-							style="color:red; padding:10px" />
+					<p:column headerText="Ações" width="20%">
+						<h:commandLink action="#{pessoaBean.editar(pessoa)}"
+							value="Editar" style=" color:orange; padding:10px" />
+						<h:commandLink action="#{pessoaBean.excluir(pessoa)}"
+							value="Excluir" style="color:red; padding:10px" />
+						<h:commandLink action="#{pessoaBean.pessoaPDF(pessoa)}">
+							<h:graphicImage value="/resources/imagens/pdf.png" width="20%" />
+						</h:commandLink>
 					</p:column>
 				</p:dataTable>
 			</h:form>
