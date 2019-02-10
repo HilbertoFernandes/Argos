@@ -164,7 +164,7 @@ public class Investigacao {
 
 		for (Local local : this.locais) {
 			locais_investigados = locais_investigados + " Título :" + local.getTitulo() + " Apelido :"
-					+ local.getDescricao() + "\n";
+					+ local.getHistorico() + "\n";
 		}
 
 		for (Informacao informacao : this.informacoes) {

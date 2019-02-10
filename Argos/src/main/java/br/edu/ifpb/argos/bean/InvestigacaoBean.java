@@ -3,18 +3,15 @@ package br.edu.ifpb.argos.bean;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
-
 import br.edu.ifpb.argos.entity.Crime;
 import br.edu.ifpb.argos.entity.Fato;
 import br.edu.ifpb.argos.entity.Informacao;
@@ -60,6 +57,7 @@ public class InvestigacaoBean extends GenericBean {
 			this.addSuccessMessage("investigacao salva com sucesso");
 			proxView = "lista?faces-redirect=true";
 		}
+		investigacao = new Investigacao();
 		return proxView;
 	}
 
@@ -76,9 +74,15 @@ public class InvestigacaoBean extends GenericBean {
 		this.titulo = investigacao.getTitulo();
 		this.descricao = investigacao.getDescricao();
 		this.id = investigacao.getId();
-		System.out.println(investigacao.getId());
-		System.out.println(investigacao.getTitulo());
+		this.editando = true;
 		return "cadastro?faces-redirect=true&includeViewParams=true";
+	}
+	
+	public String cancelarEdicao() {
+		this.titulo = null;
+		this.descricao = null;
+		this.id = null;
+		return "/usuario/home?faces-redirect=true";
 	}
 
 	public void listarInvestigacoes() {
@@ -360,7 +364,7 @@ public class InvestigacaoBean extends GenericBean {
 	}
 
 	public String goAssociarCrime() {
-		return "/investigacao/lista_pessoa?faces-redirect=true";
+		return "/investigacao/lista_crime?faces-redirect=true";
 	}
 
 	public String goAssociarFato() {

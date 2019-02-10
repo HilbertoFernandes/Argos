@@ -30,8 +30,8 @@ public class Local implements Serializable {
 	@Column(name = "ENDERECO")
 	private String endereco;
 
-	@Column(name = "DESCRICAO")
-	private String descricao;
+	@Column(name = "HISTORICO")
+	private String historico;
 
 	@Column(name = "FOTO")
 	private String foto;
@@ -44,7 +44,7 @@ public class Local implements Serializable {
 		this.titulo = titulo;
 		this.id = id;
 		this.endereco = endereco;
-		this.descricao = descricao;
+		this.historico = descricao;
 		this.foto = foto;
 	}
 
@@ -54,34 +54,6 @@ public class Local implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getData() {
-		return foto;
-	}
-
-	public void setData(String foto) {
-		this.foto = foto;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public List<Investigacao> getInvestigacoes() {
@@ -100,6 +72,22 @@ public class Local implements Serializable {
 		this.titulo = titulo;
 	}
 
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getHistorico() {
+		return historico;
+	}
+
+	public void setHistorico(String historico) {
+		this.historico = historico;
+	}
+
 	public String getFoto() {
 		return foto;
 	}
@@ -108,4 +96,7 @@ public class Local implements Serializable {
 		this.foto = foto;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

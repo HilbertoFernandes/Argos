@@ -93,6 +93,7 @@ public class ObjetoBean extends GenericBean {
 	public String editar(Objeto objeto) {
 		this.nome = objeto.getNome();
 		this.descricao = objeto.getDescricao();
+		this.id = objeto.getId();
 		this.editando = true;
 		return "cadastro?faces-redirect=true&includeViewParams=true";
 	}

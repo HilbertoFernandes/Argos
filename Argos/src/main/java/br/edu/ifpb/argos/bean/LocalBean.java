@@ -19,7 +19,6 @@ import br.edu.ifpb.argos.entity.Investigacao;
 import br.edu.ifpb.argos.entity.Local;
 import br.edu.ifpb.argos.facade.InvestigacaoController;
 import br.edu.ifpb.argos.facade.LocalController;
-import br.edu.ifpb.argos.facade.ObjetoController;
 
 @ManagedBean(name = "localBean")
 @ViewScoped
@@ -27,7 +26,6 @@ public class LocalBean extends GenericBean {
 	private Integer id = null;
 	private String titulo;
 	private String endereco;
-	private String descricao;
 	private String historico;
 	private Local local;
 	private UploadedFile foto;
@@ -51,7 +49,7 @@ public class LocalBean extends GenericBean {
 			local = controller.buscar(id);
 			local.setTitulo(titulo);
 			local.setEndereco(endereco);
-			local.setDescricao(descricao);
+			local.setHistorico(historico);
 			controller.atualizar(local);
 			proxView = "lista?faces-redirect=true";
 		} else {
@@ -66,7 +64,7 @@ public class LocalBean extends GenericBean {
 
 			local.setTitulo(titulo);
 			local.setEndereco(endereco);
-			local.setDescricao(descricao);
+			local.setHistorico(historico);
 			String local_foto = Paths
 					.get(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/").toString() + "/fotos")
 					.toString();
@@ -100,7 +98,7 @@ public class LocalBean extends GenericBean {
 	}
 
 	public String editar(Local local) {
-		this.descricao = local.getDescricao();
+		this.historico = local.getHistorico();
 		this.endereco = local.getEndereco();
 		this.titulo = local.getTitulo();
 		this.id = local.getId();
@@ -148,14 +146,6 @@ public class LocalBean extends GenericBean {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	public String getHistorico() {

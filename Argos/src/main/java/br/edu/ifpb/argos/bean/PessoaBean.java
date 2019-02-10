@@ -50,15 +50,12 @@ public class PessoaBean extends GenericBean {
 		PessoaController controller = new PessoaController();
 		pessoa = new Pessoa();
 		if (id != null) {
-			editando = true;
-			if (nome.isEmpty()) {
-				nome = "Desconhecido";
-			}
 			pessoa = controller.buscar(id);
+			
 			if (nome.isEmpty()) {
 				nome = "Desconhecido";
 			}
-
+		
 			if (apelido.isEmpty()) {
 				apelido = "Desconhecido";
 			}
@@ -114,6 +111,7 @@ public class PessoaBean extends GenericBean {
 	}
 
 	public String editar(Pessoa pessoa) {
+		this.id = pessoa.getId();
 		this.nome = pessoa.getNome();
 		this.apelido = pessoa.getApelido();
 		this.historico = pessoa.getHistorico();

@@ -39,6 +39,7 @@ public class CrimeBean extends GenericBean implements Serializable {
 			crime = controller.buscar(id);
 			crime.setTitulo(titulo);
 			crime.setHistorico(historico);
+			crime.setData(data);
 			controller.atualizar(crime);
 			proxView = "lista?faces-redirect=true";
 		} else {
