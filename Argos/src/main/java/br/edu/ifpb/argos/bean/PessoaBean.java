@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -15,9 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-
 import org.primefaces.model.UploadedFile;
-
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
@@ -51,21 +48,6 @@ public class PessoaBean extends GenericBean {
 		pessoa = new Pessoa();
 		if (id != null) {
 			pessoa = controller.buscar(id);
-			
-			if (nome.isEmpty()) {
-				nome = "Desconhecido";
-			}
-		
-			if (apelido.isEmpty()) {
-				apelido = "Desconhecido";
-			}
-
-			pessoa.setNome(nome);
-			pessoa.setApelido(apelido);
-			pessoa.setHistorico(historico);
-			controller.atualizar(pessoa);
-			proxView = "lista?faces-redirect=true";
-		} else {
 
 			if (nome.isEmpty()) {
 				nome = "Desconhecido";
@@ -87,6 +69,33 @@ public class PessoaBean extends GenericBean {
 				BufferedImage img = null;
 				pessoa.setFoto("/fotos/" + nomeDaImagem);
 				img = ImageIO.read(new ByteArrayInputStream(foto.getContents()));
+				ImageIO.write(img, "JPG", new File(local, nomeDaImagem));
+			}
+
+			controller.atualizar(pessoa);
+			proxView = "lista?faces-redirect=true";
+		} else {
+
+			if (nome.isEmpty()) {
+				nome = "Desconhecido";
+			}
+
+			if (apelido.isEmpty()) {
+				apelido = "Desconhecido";
+			}
+
+			pessoa.setNome(nome);
+			pessoa.setApelido(apelido);
+			pessoa.setHistorico(historico);
+
+			if (foto.getSize() != 0) {
+				String nomeDaImagem = String.valueOf(System.currentTimeMillis());
+				BufferedImage img = null;
+				pessoa.setFoto("/fotos/" + nomeDaImagem);
+				img = ImageIO.read(new ByteArrayInputStream(foto.getContents()));
+				String local = Paths.get(
+						FacesContext.getCurrentInstance().getExternalContext().getRealPath("/").toString() + "/fotos")
+						.toString();
 				ImageIO.write(img, "JPG", new File(local, nomeDaImagem));
 			} else {
 				pessoa.setFoto("/fotos/desconhecido.jpg");
@@ -138,11 +147,12 @@ public class PessoaBean extends GenericBean {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			PdfWriter.getInstance(document, baos);
 			document.open();
-		
-			document.add(Image.getInstance(String.format(FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\") + pessoa.getFoto())));
-			document.add(new Paragraph("Nome :"+pessoa.getNome()));
-			document.add(new Paragraph("Apelido : "+ pessoa.getApelido()));
-			document.add(new Paragraph("Histórico :"+ pessoa.getHistorico()));
+
+			document.add(Image.getInstance(String.format(
+					FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\") + pessoa.getFoto())));
+			document.add(new Paragraph("Nome :" + pessoa.getNome()));
+			document.add(new Paragraph("Apelido : " + pessoa.getApelido()));
+			document.add(new Paragraph("Histórico :" + pessoa.getHistorico()));
 			document.close();
 			response.setHeader("Expires", "0");
 			response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");

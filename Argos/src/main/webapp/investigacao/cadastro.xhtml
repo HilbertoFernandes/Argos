@@ -69,7 +69,14 @@
 								 style="width:20%;
 								 padding:1%;
 								 margin:3%;
-				                 margin-left:1%"/>
+				                 margin-left:1%" rendered="#{investigacaoBean.editando}"/>
+				                 
+				                  <p:link class="btn btn-default"
+				                 href="../usuario/home.jsf?faces-redirect=true" 
+				                 style="width:20%;
+								 padding:1%;
+								 margin:3%;
+				                 margin-left:1%" value="Cancelar" rendered="#{not investigacaoBean.editando}"/>
 					</div>
 				</div>
 	     </h:form>
